@@ -1,91 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-<html>
-  <head>
+<html lang="ru">
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ .title }}</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=PT+Mono:wght@400&display=swap"
-    />
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Mono:wght@400&display=swap"/>
     <link rel="stylesheet" href="/static/css/information.css" />
-  </head>
-  <body>
+</head>
+<body>
     <div class="information-about">
-      <div class="div">
-        <div class="overlap">
-          <p class="text-additional-info">
-            <span class="text-wrapper">Python</span>
-            <span class="span">
-              — это высокоуровневый язык программирования общего назначения, который широко используется для различных
-              приложений благодаря своей гибкости, простоте и мощным возможностям расширения. Вот основные технические
-              характеристики Python:<br /><br />1.
-            </span>
-            <span class="text-wrapper">Типизация</span>
-            <span class="span"
-              >: Python является динамически типизированным языком, что означает, что типы переменных проверяются во
-              время выполнения программы.<br /><br />2.
-            </span>
-            <span class="text-wrapper">Исполняемость</span>
-            <span class="span"
-              >: Python интерпретируемый язык. Код Python выполняется интерпретатором, который читает и исполняет
-              команды строки за строкой.<br /><br />3.
-            </span>
-            <span class="text-wrapper">Синтаксис</span>
-            <span class="span"
-              >: Python имеет простой и читаемый синтаксис, что делает его удобным для новичков и разработчиков. Отступы
-              используются для обозначения блоков кода.<br /><br />4.
-            </span>
-            <span class="text-wrapper">Мультисистемность</span>
-            <span class="span"
-              >: Python доступен для большинства операционных систем, включая Windows, macOS, и Linux.<br /><br />6.
-            </span>
-            <span class="text-wrapper">Объектно-Ориентированное Программирование (ООП)</span>
-            <span class="span"
-              >: Python поддерживает объектно-ориентированное программирование, позволяя создавать классы и объекты.<br /><br />7.
-            </span>
-            <span class="text-wrapper">Модульность и библиотеки</span>
-            <span class="span"
-              >: Python поддерживает создание модулей и пакетов, а также имеет обширную стандартную библиотеку, которая
-              предоставляет множество функциональных возможностей.<br /><br />10.
-            </span>
-            <span class="text-wrapper">Пакетный менеджер</span>
-            <span class="span"
-              >: Python использует `pip` в качестве стандартного инструмента для установки и управления пакетами и
-              библиотеками.<br /><br />11.
-            </span>
-            <span class="text-wrapper">Производительность</span>
-            <span class="span"
-              >: Python может быть медленнее по сравнению с некоторыми компилируемыми языками, но его производительность
-              можно улучшить с помощью различных оптимизаций и расширений, таких как Cython и PyPy.</span
-            >
-          </p>
+        <div class="header">
+            <a href="/home" class="background-btn-back">
+                <img class="icon-btn-back" src="/image/icon-btn-back.png" />
+            </a>
         </div>
-        <div class="overlap-group">
-          <p class="text-purpose">
-            <span class="text-wrapper-2">Автор:</span>
-            <span class="text-wrapper-3"> Гвидо ван Россум</span>
-            <span class="text-wrapper-2">Год выпуска: </span>
-            <span class="text-wrapper-3">1991</span>
-            <span class="text-wrapper-2">Псоледняя версия:<br /></span>
-            <span class="text-wrapper-3">Python 3.12.6 (Sep 12, 2024)</span>
-          </p>
+        <div class="title">
+            <div class="text-name-lang">{{ .Info.Name }}</div>
+            <div class="text-description-lang">{{ .Info.ShortDescription }}</div>
+            <img class="img-lang" src="{{ .Info.ImgLink }}" />>
         </div>
-        <div class="overlap-2">
-          <div class="text-name-lab">“Объединяет простоту и мощь&#34;</div>
-          <div class="text-number-lab">Python</div>
-          <img class="python" src="img/python-2.png" />
+        <div class="background-basic-info">
+            <div class="tag-basic-info tag-basic-info-1">Автор:</div>
+            <div class="subtext-basic-info subtext-basic-info-1">{{ .Info.Author }}</div>
+            <div class="tag-basic-info tag-basic-info-2">Год выпуска:</div>
+            <div class="subtext-basic-info subtext-basic-info-2">{{ .Info.Year }}</div>
+            <div class="tag-basic-info tag-basic-info-3">Последняя версия:<br /></div>
+            <div class="subtext-basic-info subtext-basic-info-3">{{ .Info.Version }}</div>
         </div>
-        <div class="overlap-3">
-          <div class="backgroung-btn-back"></div>
-          <img class="icon-btn-back" src="img/icon-btn-back.svg" />
+        <div class="background-additional-info">
+            <div class="text-additional-info">
+                <span class="bold-subtext">{{ .Info.Name }}</span>
+                <span class="subtext">{{ .Info.Description }}</span>
+            </div>
+
+            <ul class="features-list">
+                {{ range $key, $value := .Info.List }}
+                <li>
+                    <span class="bold-subtext">{{ $key }}</span>
+                    <span class="subtext">{{ $value }}</span>
+                </li>
+                {{ end }}
+            </ul>
         </div>
-      </div>
     </div>
-  </body>
+</body>
 </html>

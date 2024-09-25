@@ -1,57 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ .title }}</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=PT+Mono:wght@400&display=swap"
-    />
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Mono:wght@400&display=swap"/>
     <link rel="stylesheet" href="/static/css/applications.css" />
   </head>
   <body>
     <div class="writing-code">
-      <div class="div">
-        <div class="overlap">
-          <div class="overlap-group">
-            <p class="text-tech-info">Ln 20, Col 15&nbsp;&nbsp; Space: 4</p>
-            <p class="field-write-code">
-              def binarySearch(array, x, low, high):<br />&nbsp;&nbsp; if high &gt;= low:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mid
-              = low + (high - low)//2<br />&nbsp;&nbsp; # If found at mid, return the value<br />&nbsp;&nbsp; if
-              array[mid] == x:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return mid<br />&nbsp;&nbsp; #Search the first
-              half<br />&nbsp;&nbsp; elif array[mid] &gt; x:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
-              binarySearch(array, x, low, mid-1)<br />&nbsp;&nbsp; # Search the second half<br />&nbsp;&nbsp; else:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
-              binarySearch(array, x, mid + 1, high)<br />&nbsp;&nbsp; else:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return
-              -1<br /><br />array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]<br />x = int(input(&#34;Enter a number between 1 and
-              10:&#34;))<br />result = binarySearch(array, x, 0, len(array)-1)<br />if result != -1:<br />&nbsp;&nbsp;
-              print(&#34;Element is present at position&#34; + str(result))<br />else:<br />&nbsp;&nbsp;
-              print(&#34;Element not found&#34;)
-            </p>
-            <div class="text-lines">
-              1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9<br />10<br />11<br />12<br />13<br />14<br />15<br />16<br />17<br />18<br />19<br />20<br />21<br />22<br />23<br />24<br />25<br />26<br />27<br />28<br />29<br />30<br />31
-            </div>
+      <div class="header">
+        <a href="/home" class="background-btn-back">
+            <img class="icon-btn-back" src="/image/icon-btn-back.png" />
+        </a>
+      </div>
+      <div class="tree">
+        <div class="text-tree">Файлы проекта</div>
+        <ul class="tree-list">
+          {{range .App}}
+          <li>
+            <input type="radio" id="file{{.ID}}" name="file" />
+            <label for="file{{.ID}}" class="background-filename">{{.Filename}}</label>
+          </li>
+          {{end}}
+        </ul>
+      </div>
+      <div class="code">
+        <img class="icon-lang" src="{{ .Lang.ImgLink }}" />
+        <div class="text-lang">{{ .Lang.Name }}</div>
+        <div class="background-btn-send"><div class="text-btn-send">Сохранить</div></div>
+        <div class="background-code">
+          <div class="text-lines">
+            1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9<br />10<br />11<br />12<br />13<br />14<br />15<br />16<br />17<br />18<br />19<br />20<br />21<br />22<br />23<br />24<br />25<br />26<br />27<br />28<br />29<br />30<br />31
           </div>
-          <div class="text-btn-send-wrapper"><div class="text-btn-send">Сохранить</div></div>
-          <div class="text-lang">Python</div>
-          <img class="python" src="img/python-3.png" />
-        </div>
-        <div class="overlap-group-2">
-          <div class="text-filename-wrapper"><div class="text-filename">api.py</div></div>
-          <div class="text-filename-lab-wrapper"><div class="text-filename">index.css</div></div>
-          <div class="div-wrapper"><div class="text-filename">index.html</div></div>
-          <div class="overlap-2"><div class="text-filename-lab">server.py</div></div>
-          <div class="overlap-3"><div class="text-wrapper">main.py</div></div>
-          <div class="text-tree">Файлы проекта</div>
-        </div>
-        <div class="overlap-4">
-          <div class="backgroung-btn-back"></div>
-          <img class="icon-btn-back" src="img/icon-btn-back.svg" />
+          <textarea class="field-write-code" placeholder="Введите код здесь...">
+def binarySearch(array, x, low, high):
+    if high >= low:
+        mid = low + (high - low) // 2
+        # If found at mid, return the value
+        if array[mid] == x:
+            return mid
+        # Search the first half
+        elif array[mid] > x:
+            return binarySearch(array, x, low, mid - 1)
+        # Search the second half
+        else:
+            return binarySearch(array, x, mid + 1, high)
+    else:
+        return -1
+
+array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+x = int(input("Enter a number between 1 and 10: "))
+result = binarySearch(array, x, 0, len(array) - 1)
+if result != -1:
+    print("Element is present at position " + str(result))
+else:
+    print("Element not found")
+          </textarea>
+          <div class="text-tech-info">Ln 20, Col 15&nbsp;&nbsp; Space: 4</div>
         </div>
       </div>
     </div>

@@ -3,36 +3,84 @@ package api
 import (
 	"log"
 	"net/http"
+	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
-
-type Language struct {
-	Name        string
-	Description string
-	ImageURL    string
-}
 
 func StartServer() {
 	log.Println("Server starting up")
 
 	r := gin.Default()
+	services := GetServices()
+	appliacion := GetApplications()
+
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/image", "./resources")
 	r.Static("/static", "./static")
 
-	data := []Language{
-		{Name: "Python", Description: "“Объединяет простоту и мощь”", ImageURL: "/static/images/python.png"},
-		{Name: "C++", Description: "“Контроль и производительность в одном лице”", ImageURL: "/static/images/cpp.png"},
-		{Name: "GO", Description: "“Эффективный для масштабируемых решений”", ImageURL: "/static/images/go.png"},
-		{Name: "HTML", Description: "“Основа структуры и содержания веб-страниц”", ImageURL: "/static/images/html.png"},
-		{Name: "CSS", Description: "“Создает оформление веб-интерфейсов”", ImageURL: "/static/images/css.png"},
-	}
-
 	r.GET("/home", func(c *gin.Context) {
+		query := c.Query("search")
+		var filteredLangs []Lang
+	
+		if query == "" {
+			filteredLangs = services
+		} else {
+			for _, lang := range services {
+				if strings.Contains(strings.ToLower(lang.Name), strings.ToLower(query)) {
+					filteredLangs = append(filteredLangs, lang)
+				}
+			}
+		}
+	
 		c.HTML(http.StatusOK, "services.tmpl", gin.H{
-			"title":     "Services",
-			"languages": data,
+			"Title": "Services",
+			"Langs": filteredLangs,
+		})
+	})
+
+	r.GET("/info/:id", func(c *gin.Context) {
+		idStr := c.Param("id")
+		id, err := strconv.Atoi(idStr)
+		if err != nil || id < 0 || id >= len(services) {
+			c.String(http.StatusNotFound, "Страница не найдена")
+			return
+		}
+		info := services[id]
+
+		c.HTML(http.StatusOK, "information.tmpl", gin.H{
+			"Title": info.Name,
+			"Info":  info,
+		})
+	})
+
+	r.GET("/app", func(c *gin.Context) {
+		id := FindMaxProjectID()
+		app := GetFilesForProject(id)
+		langs := GetLangsForProject(app, id)
+
+		c.HTML(http.StatusOK, "applications.tmpl", gin.H{
+			"Title": "Applications",
+			"App":   app,
+			"Lang":  langs[0],
+		})
+	})
+
+	r.GET("/app/:id", func(c *gin.Context) {
+		idStr := c.Param("id")
+		id, err := strconv.Atoi(idStr)
+		if err != nil || id < 0 || id >= len(appliacion) {
+			c.String(http.StatusNotFound, "Страница не найдена")
+			return
+		}
+		app := GetFilesForProject(id)
+		langs := GetLangsForProject(app, id)
+
+		c.HTML(http.StatusOK, "applications.tmpl", gin.H{
+			"Title": "Applications",
+			"App":   app,
+			"Lang":  langs[0],
 		})
 	})
 
