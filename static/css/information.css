@@ -1,0 +1,155 @@
+.information-about {
+  background-color: #0d1117;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.information-about .div {
+  background-color: #0d1117;
+  width: 1920px;
+  height: 1920px;
+  position: relative;
+}
+
+.information-about .overlap {
+  position: absolute;
+  width: 1285px;
+  height: 1137px;
+  top: 481px;
+  left: 312px;
+  background-color: #212830;
+  border-radius: 20px;
+}
+
+.information-about .text-additional-info {
+  position: absolute;
+  width: 1225px;
+  top: 10px;
+  left: 27px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 25px;
+  letter-spacing: -0.47px;
+  line-height: 37.5px;
+}
+
+.information-about .text-wrapper {
+  font-weight: 700;
+  letter-spacing: -0.12px;
+}
+
+.information-about .span {
+  font-family: "Inter-Regular", Helvetica;
+  letter-spacing: -0.12px;
+}
+
+.information-about .overlap-group {
+  position: absolute;
+  width: 477px;
+  height: 217px;
+  top: 226px;
+  left: 1120px;
+  background-color: #212830;
+  border-radius: 20px;
+  border: 2px solid;
+  border-color: #ffffff;
+}
+
+.information-about .text-purpose {
+  position: absolute;
+  width: 457px;
+  top: 20px;
+  left: 8px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 30px;
+  letter-spacing: -0.57px;
+  line-height: 45px;
+}
+
+.information-about .text-wrapper-2 {
+  font-weight: 700;
+  letter-spacing: -0.17px;
+}
+
+.information-about .text-wrapper-3 {
+  font-family: "Inter-Regular", Helvetica;
+  letter-spacing: -0.17px;
+}
+
+.information-about .overlap-2 {
+  position: absolute;
+  width: 759px;
+  height: 217px;
+  top: 226px;
+  left: 312px;
+  background-color: #d9d9d9;
+  border-radius: 30px;
+}
+
+.information-about .text-name-lab {
+  position: absolute;
+  width: 679px;
+  top: 83px;
+  left: 27px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 40px;
+  letter-spacing: -0.76px;
+  line-height: 60px;
+}
+
+.information-about .text-number-lab {
+  position: absolute;
+  width: 639px;
+  top: 12px;
+  left: 27px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 55px;
+  letter-spacing: -1.04px;
+  line-height: 82.5px;
+  white-space: nowrap;
+}
+
+.information-about .python {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 11px;
+  left: 666px;
+  object-fit: cover;
+}
+
+.information-about .overlap-3 {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  top: 58px;
+  left: 89px;
+  border-radius: 5px;
+}
+
+.information-about .backgroung-btn-back {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  top: 0;
+  left: 0;
+  background-color: #b1b1b1;
+  border-radius: 5px;
+}
+
+.information-about .icon-btn-back {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 10px;
+  left: 10px;
+}

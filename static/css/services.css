@@ -1,0 +1,293 @@
+.main-page-services {
+  background-color: #0d1117;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.main-page-services .div {
+  background-color: #0d1117;
+  width: 1920px;
+  height: 1920px;
+  position: relative;
+}
+
+.main-page-services .text-count-files {
+  position: absolute;
+  width: 16px;
+  top: 33px;
+  left: 40px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.main-page-services .icon-count-files {
+  position: absolute;
+  width: 95px;
+  height: 85px;
+  top: 0;
+  left: 0;
+}
+
+.main-page-services .text-find {
+  position: absolute;
+  width: 325px;
+  top: 11px;
+  left: 81px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 30px;
+  letter-spacing: -0.57px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.main-page-services .icon-find {
+  position: absolute;
+  width: 49px;
+  height: 50px;
+  top: 12px;
+  left: 20px;
+}
+
+.main-page-services .line {
+  position: absolute;
+  width: 1432px;
+  height: 1px;
+  top: 309px;
+  left: 244px;
+  object-fit: cover;
+}
+
+.main-page-services .overlap {
+  position: absolute;
+  width: 1079px;
+  height: 214px;
+  top: 1438px;
+  left: 414px;
+  border-radius: 20px;
+}
+
+.main-page-services .backgrund {
+  position: absolute;
+  width: 1079px;
+  height: 214px;
+  top: 0;
+  left: 0;
+  background-color: #212830;
+  border-radius: 20px;
+}
+
+.main-page-services .backgrund-btn-add {
+  position: absolute;
+  width: 304px;
+  height: 62px;
+  top: 123px;
+  left: 51px;
+  background-color: #d9d9d9;
+  border-radius: 25px;
+}
+
+.main-page-services .text-btn-add {
+  position: absolute;
+  width: 270px;
+  top: 130px;
+  left: 66px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.57px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.main-page-services .img {
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  top: 16px;
+  left: 836px;
+  object-fit: cover;
+}
+
+.main-page-services .text-description {
+  position: absolute;
+  width: 770px;
+  top: 61px;
+  left: 36px;
+  font-family: "PT Mono-Regular", Helvetica;
+  font-weight: 400;
+  color: #d6d6d6;
+  font-size: 30px;
+  letter-spacing: -0.57px;
+  line-height: 45px;
+}
+
+.main-page-services .text-name {
+  position: absolute;
+  width: 565px;
+  top: 10px;
+  left: 36px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 35px;
+  letter-spacing: -0.66px;
+  line-height: 52.5px;
+  white-space: nowrap;
+}
+
+.main-page-services .overlap-group {
+  position: absolute;
+  width: 1079px;
+  height: 214px;
+  top: 1171px;
+  left: 414px;
+  border-radius: 20px;
+}
+
+.main-page-services .backgrund-btn-add-2 {
+  position: absolute;
+  width: 304px;
+  height: 62px;
+  top: 123px;
+  left: 55px;
+  background-color: #d9d9d9;
+  border-radius: 25px;
+}
+
+.main-page-services .text-btn-add-lab {
+  position: absolute;
+  width: 270px;
+  top: 130px;
+  left: 70px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.57px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.main-page-services .html {
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  top: 22px;
+  left: 836px;
+  object-fit: cover;
+}
+
+.main-page-services .overlap-group-2 {
+  position: absolute;
+  width: 1079px;
+  height: 214px;
+  top: 904px;
+  left: 414px;
+  border-radius: 20px;
+}
+
+.main-page-services .overlap-2 {
+  position: absolute;
+  width: 1079px;
+  height: 214px;
+  top: 637px;
+  left: 414px;
+  border-radius: 20px;
+}
+
+.main-page-services .backgrund-btn-add-3 {
+  position: absolute;
+  width: 304px;
+  height: 62px;
+  top: 123px;
+  left: 53px;
+  background-color: #d9d9d9;
+  border-radius: 25px;
+}
+
+.main-page-services .text-wrapper {
+  position: absolute;
+  width: 270px;
+  top: 130px;
+  left: 68px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: -0.57px;
+  line-height: 45px;
+  white-space: nowrap;
+}
+
+.main-page-services .overlap-3 {
+  position: absolute;
+  width: 1079px;
+  height: 214px;
+  top: 370px;
+  left: 414px;
+  border-radius: 20px;
+}
+
+.main-page-services .backgrund-lab {
+  position: absolute;
+  width: 1079px;
+  height: 214px;
+  top: 0;
+  left: 0;
+  background-color: #212830;
+  border-radius: 20px;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.main-page-services .backgrund-btn-add-4 {
+  position: absolute;
+  width: 304px;
+  height: 62px;
+  top: 123px;
+  left: 55px;
+  background-color: #d9d9d9;
+  border-radius: 25px;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.main-page-services .line {
+  position: absolute;
+  width: 1432px;
+  height: 1px;
+  top: 309px;
+  left: 244px;
+  object-fit: cover;
+}
+
+.main-page-services .overlap-4 {
+  position: absolute;
+  width: 95px;
+  height: 85px;
+  top: 168px;
+  left: 1511px;
+}
+
+.main-page-services .overlap-5 {
+  position: absolute;
+  width: 1161px;
+  height: 75px;
+  top: 174px;
+  left: 314px;
+  background-color: #d9d9d9;
+  border-radius: 40px;
+}
