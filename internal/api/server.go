@@ -13,8 +13,6 @@ func StartServer() {
 	log.Println("Server starting up")
 
 	r := gin.Default()
-	services := GetServices()
-	appliacion := GetApplications()
 
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/image", "./resources")
@@ -22,8 +20,10 @@ func StartServer() {
 
 	r.GET("/home", func(c *gin.Context) {
 		query := c.Query("search")
+
+		services := GetServices()
 		var filteredLangs []Lang
-	
+
 		if query == "" {
 			filteredLangs = services
 		} else {
@@ -33,7 +33,7 @@ func StartServer() {
 				}
 			}
 		}
-	
+
 		c.HTML(http.StatusOK, "services.tmpl", gin.H{
 			"Title": "Services",
 			"Langs": filteredLangs,
@@ -43,6 +43,7 @@ func StartServer() {
 	r.GET("/info/:id", func(c *gin.Context) {
 		idStr := c.Param("id")
 		id, err := strconv.Atoi(idStr)
+		services := GetServices()
 		if err != nil || id < 0 || id >= len(services) {
 			c.String(http.StatusNotFound, "Страница не найдена")
 			return
@@ -52,25 +53,15 @@ func StartServer() {
 		c.HTML(http.StatusOK, "information.tmpl", gin.H{
 			"Title": info.Name,
 			"Info":  info,
-		})
-	})
-
-	r.GET("/app", func(c *gin.Context) {
-		id := FindMaxProjectID()
-		app := GetFilesForProject(id)
-		langs := GetLangsForProject(app, id)
-
-		c.HTML(http.StatusOK, "applications.tmpl", gin.H{
-			"Title": "Applications",
-			"App":   app,
-			"Lang":  langs[0],
+			"List":  parseList(info.List),
 		})
 	})
 
 	r.GET("/app/:id", func(c *gin.Context) {
 		idStr := c.Param("id")
 		id, err := strconv.Atoi(idStr)
-		if err != nil || id < 0 || id >= len(appliacion) {
+		application := GetApplications()
+		if err != nil || id < 0 || id >= len(application) {
 			c.String(http.StatusNotFound, "Страница не найдена")
 			return
 		}
@@ -83,6 +74,18 @@ func StartServer() {
 			"Lang":  langs[0],
 		})
 	})
+
+	// r.GET("/app", func(c *gin.Context) {
+	// 	id := FindMaxProjectID()
+	// 	app := GetFilesForProject(id)
+	// 	langs := GetLangsForProject(app, id)
+
+	// 	c.HTML(http.StatusOK, "applications.tmpl", gin.H{
+	// 		"Title": "Applications",
+	// 		"App":   app,
+	// 		"Lang":  langs[0],
+	// 	})
+	// })
 
 	if err := r.Run(); err != nil {
 		log.Fatalf("Server failed: %v", err)

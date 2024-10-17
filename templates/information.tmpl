@@ -17,8 +17,8 @@
         </div>
         <div class="title">
             <div class="text-name-lang">{{ .Info.Name }}</div>
-            <div class="text-description-lang">{{ .Info.ShortDescription }}</div>
-            <img class="img-lang" src="{{ .Info.ImgLink }}" />>
+            <div class="text-description-lang">"{{ .Info.ShortDescription }}"</div>
+            <img class="img-lang" src="{{ .Info.ImgLink }}" /img>
         </div>
         <div class="background-basic-info">
             <div class="tag-basic-info tag-basic-info-1">Автор:</div>
@@ -35,7 +35,7 @@
             </div>
 
             <ul class="features-list">
-                {{ range $key, $value := .Info.List }}
+                {{ range $key, $value := .List }}
                 <li>
                     <span class="bold-subtext">{{ $key }}</span>
                     <span class="subtext">{{ $value }}</span>

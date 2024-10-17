@@ -3,6 +3,7 @@
   --color-background-dark: #0d1117;
   --color-background-light: #d9d9d9;
   --color-background-darkest: #212830;
+  --color-background-lightest: #ababab;
   --color-text-light: #ffffff;
   --color-text-dark: #000000;
   --color-text-muted: #d6d6d6;
@@ -24,6 +25,34 @@ body {
   background-color: var(--color-background-dark);
   margin: 0;
   padding: 0;
+}
+
+.header, .icon-btn-back, .background-btn-back {
+  position: absolute;
+}
+
+.header {
+  width: 70px;
+  height: 70px;
+  top: 58px;
+  left: 89px;
+  border-radius: 5px;
+}
+
+.icon-btn-back {
+  width: 50px;
+  height: 50px;
+  top: 10px;
+  left: 10px;
+}
+
+.background-btn-back {
+  width: 70px;
+  height: 70px;
+  top: 0;
+  left: 0;
+  background-color: var(--color-background-lightest);
+  border-radius: 5px;
 }
 
 .services-container {
