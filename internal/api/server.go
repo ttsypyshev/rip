@@ -61,17 +61,19 @@ func StartServer() {
 		idStr := c.Param("id")
 		id, err := strconv.Atoi(idStr)
 		application := GetApplications()
+		
 		if err != nil || id < 0 || id >= len(application) {
 			c.String(http.StatusNotFound, "Страница не найдена")
 			return
 		}
-		app := GetFilesForProject(id)
-		langs := GetLangsForProject(app, id)
+
+		files := GetFilesForProject(id)
+		langs := GetServices()
 
 		c.HTML(http.StatusOK, "applications.tmpl", gin.H{
-			"Title": "Applications",
-			"App":   app,
-			"Lang":  langs[0],
+			"Title": "Project",
+			"Files": files,
+			"Langs": langs,
 		})
 	})
 

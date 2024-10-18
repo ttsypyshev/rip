@@ -13,18 +13,25 @@
   --border-radius-large: 40px;
   --font-size-large: 35px;
   --font-size-default: 30px;
-  --font-size-small: 20px;
+  --font-size-small: 25px;
   --line-height-large: 53px;
   --line-height-default: 45px;
-  --line-height-small: 24px;
+  --line-height-small: 27px;
   --font-weight-regular: 400;
   --font-weight-bold: 700;
 }
+
 
 body {
   background-color: var(--color-background-dark);
   margin: 0;
   padding: 0;
+}
+
+.services-container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
 }
 
 .header, .icon-btn-back, .background-btn-back {
@@ -53,12 +60,6 @@ body {
   left: 0;
   background-color: var(--color-background-lightest);
   border-radius: 5px;
-}
-
-.services-container {
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
 }
 
 .file-count-text {
@@ -153,80 +154,41 @@ body {
 
 .service-list {
   display: flex;
-  flex-direction: column;
-  gap: 53px;
-  list-style-type: none;
+  flex-wrap: wrap;
+  gap: 30px; /* Задаем отступы между элементами */
   padding: 0;
-  margin: 0;
-  position: absolute;
   top: 370px;
-  left: 414px;
+  margin: auto;
+  position: relative;
+  width: 1500px;
+  list-style-type: none;
 }
 
 .service-item {
-  width: 1079px;
-  height: 214px;
+  width: calc(50% - 20px); /* Устанавливаем ширину на 50% с учетом отступов */
+  height: 220px; /* Оставляем фиксированную высоту */
   border-radius: var(--border-radius-small);
   background-color: var(--color-background-darkest);
   position: relative;
 }
 
-.add-to-project-button-background {
-  position: absolute;
-  top: 123px;
-  left: 51px;
-  width: 304px;
-  height: 62px;
-  background-color: var(--color-background-light);
-  border-radius: var(--border-radius-default);
+.service-link {
+  display: block; /* Позволяет ссылке занимать всю ширину элемента списка */
+  width: 100%; /* Задаем ширину в 100% от родительского элемента */
+  height: 100%; /* Задаем высоту в 100% от родительского элемента */
+  text-decoration: none; /* Убирает подчеркивание текста */
+  color: inherit; /* Устанавливает цвет текста как у родительского элемента */
+  transition: background-color 0.3s ease; /* Плавный переход при изменении фона */
 }
 
-.add-to-project-button-text {
-  position: absolute;
-  top: 130px;
-  left: 66px;
-  width: 270px;
-  font-family: "Inter", var(--font-family-default);
-  color: var(--color-text-dark);
-  font-size: var(--font-size-default);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-default);
-  text-align: center;
-  white-space: nowrap;
-  letter-spacing: -1.9%;
-  z-index: 5;
-}
-
-.service-image {
-  position: absolute;
-  top: 16px;
-  left: 836px;
-  width: 170px;
-  height: 170px;
-  object-fit: cover;
-}
-
-.service-description {
-  position: absolute;
-  top: 61px;
-  left: 36px;
-  width: 770px;
-  font-family: "PT Mono", var(--font-family-default);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-default);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-default);
-  text-align: left;
-  white-space: nowrap;
-  letter-spacing: -1.9%;
-  z-index: 5;
+/* Стили при наведении мыши */
+.service-link:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Изменение фона при наведении */
 }
 
 .service-title {
-  position: absolute;
-  top: 10px;
-  left: 36px;
-  width: 565px;
+  margin-top: 10px;
+  margin-left: 20px;
   font-family: "Inter", var(--font-family-default);
   color: var(--color-text-light);
   font-size: var(--font-size-large);
@@ -234,10 +196,47 @@ body {
   line-height: var(--line-height-large);
   text-align: left;
   white-space: nowrap;
-  letter-spacing: -1.9%;
-  z-index: 5;
 }
 
-.spacer {
-  height: 50px; /* Adjust height as needed */
+.service-description {
+  margin-left: 20px;
+  max-width: 550px;
+  font-family: "PT Mono", var(--font-family-default);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-small);
+  text-align: left;
+  white-space: normal;
+}
+
+.service-image {
+  position: absolute;
+  top: 16px;
+  left: 550px;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+}
+
+.add-to-project-button-background {
+  position: absolute;
+  top: 135px;
+  left: 30px;
+  width: 310px;
+  height: 60px;
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius-default);
+  display: flex; /* Для центровки текста */
+  align-items: center; /* Вертикальная центровка */
+  justify-content: center; /* Горизонтальная центровка */
+}
+
+.add-to-project-button-text {
+  font-family: "Inter", var(--font-family-default);
+  color: var(--color-text-dark);
+  font-size: var(--font-size-default);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-default);
+  white-space: nowrap;
 }

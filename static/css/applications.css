@@ -1,18 +1,26 @@
 :root {
-  --font-family-default: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, SFProLocalRange;
+  --font-family-default: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Ubuntu', 'Cantarell', 'Noto Sans', sans-serif, 'BlinkMacSystemFont', 'Helvetica Neue', Arial;
+  --font-family-mono: 'PT Mono', monospace;
+  
   --color-background-dark: #0d1117;
   --color-background-light: #212830;
   --color-background-medium: #6f6f6f;
   --color-background-lightest: #ababab;
+  --color-background-code: #151b23;
   --color-text-light: #ffffff;
   --color-text-dark: #000000;
-  --color-btn-send: #238636;
+  --color-btn-back: #238636;
   --color-border: #ffffff;
-  --font-size-default: 30px;
-  --font-size-small: 25px;
-  --line-height-default: 36px;
-  --line-height-small: 37.5px;
-  --border-radius-default: 25px;
+
+  --font-size-default: 16px;
+  --font-size-large: 20px;
+  --font-size-small: 14px;
+  
+  --line-height-default: 1.5;
+  --line-height-small: 1.4;
+  
+  --border-radius-default: 15px;
+  --border-radius-large: 25px;
   --font-weight-regular: 400;
   --font-weight-bold: 700;
 }
@@ -57,99 +65,45 @@ body {
   border-radius: 5px;
 }
 
-.tree, .code, .background-code {
-  position: absolute;
-  border-radius: var(--border-radius-default);
-}
-
-.text-tree {
-  position: absolute;
-  width: 366px;
-  top: 20px;
-  left: 20px; 
-  font-family: "Inter", var(--font-family-default);
-  color: var(--color-text-light);
-  font-size: var(--font-size-default);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-default);
-  text-align: left;
-  white-space: nowrap;
-  letter-spacing: 0;
-  z-index: 5;
-}
-
 .tree {
-  width: 435px;
-  margin: 0 auto;
-  top: 228px;
-  left: 154px;
-  background-color: var(--color-background-light);
-}
-
-.tree-list {
-  list-style: none;
-  top: 0;
-  padding: 0;
-  margin-top: 76px;
-}
-
-.tree-list li {
-  margin-bottom: 10px;
-}
-
-.background-filename {
-  width: 415px;
-  height: 55px;
-  margin: 0 10px;
-  border-radius: 20px;
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  top: 200px;
   align-items: center;
-  box-sizing: border-box;
-  cursor: pointer;
-  
-  background-color: var(--color-background-medium);
-  font-family: "Inter", var(--font-family-default);
-  font-size: var(--font-size-default);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-default);
-  text-align: left;
-  white-space: nowrap;
-  padding: 0 10px; 
-  letter-spacing: 0;
-  color: var(--color-text-dark);
+  width: 100%;
 }
 
-input[type="radio"] {
-  display: none;
-}
-
-input[type="radio"]:checked + .background-filename {
-  background-color: var(--color-background-lightest);
-  color: var(--color-text-light);
+ul {
+  padding-left: 0;
+  list-style: none;
 }
 
 .code {
-  width: 1139px;
-  height: 1342px;
-  top: 228px;
-  left: 627px;
+  position: relative;
+  width: 1150px;
   background-color: var(--color-background-light);
+  border-radius: var(--border-radius-default);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+
+.lang-container {
+  display: flex;
+  align-items: center;
 }
 
 .icon-lang {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  top: 10px;
-  left: 13px;
+  width: 50px;
+  height: 50px;
   object-fit: cover;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .text-lang {
-  position: absolute;
-  width: 386px;
-  top: 15px;
-  left: 85px;
   font-family: "Inter", var(--font-family-default);
   color: var(--color-text-light);
   font-size: var(--font-size-default);
@@ -158,94 +112,47 @@ input[type="radio"]:checked + .background-filename {
   text-align: left;
   white-space: nowrap;
   letter-spacing: 0;
-  z-index: 2;
-}
-
-.text-btn-send {
-  position: absolute;
-  width: 159px;
-  top: 7px;
-  left: 26px;
-  font-family: "Inter", var(--font-family-default);
-  color: var(--color-text-light);
-  font-size: var(--font-size-default);
-  font-weight: var(--font-weight-regular);
-  line-height: 45px;
-  text-align: left;
-  white-space: nowrap;
-  letter-spacing: 0;
-  z-index: 5;
-}
-
-.background-btn-send {
-  position: absolute;
-  width: 211px;
-  height: 60px;
-  top: 10px;
-  left: 906px;
-  background-color: var(--color-btn-send);
-  border-radius: var(--border-radius-default);
 }
 
 .background-code {
-  width: 1136px;
-  height: 1266px;
-  top: 76px;
-  left: 0;
-  background-color: #151b23;
+  background-color: var(--);;
   border: 1px solid var(--color-border);
   border-radius: 0 0 var(--border-radius-default) var(--border-radius-default);
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 .text-lines {
-  position: absolute;
-  width: 54px;
-  top: 36px;
-  left: 12px;
-  font-family: "PT Mono", var(--font-family-default);
+  font-family: var(--font-family-mono);
   color: var(--color-text-light);
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-default);
   line-height: var(--line-height-small);
-  text-align: left;
+  text-align: right;
   white-space: nowrap;
-  letter-spacing: -0.47px;
-  z-index: 2;
+  margin-top: 5px;
+  margin-left: 10px;
 }
 
 .field-write-code {
-  position: absolute;
-  width: 1057px;
-  height: 1182px;
-  top: 22px;
-  left: 66px;
-  font-family: "PT Mono", var(--font-family-default);
-  color: var(--color-text-light);
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-small);
-  text-align: left;
+  flex-grow: 1;
   background-color: transparent;
-  box-sizing: border-box;
-  white-space: pre-wrap;
-  overflow-y: auto;
-  resize: none;
+  font-family: var(--font-family-mono);
+  color: var(--color-text-light);
+  font-size: var(--font-size-default);
+  line-height: var(--line-height-small);
+  border: none;
   outline: none;
-  padding: 10px;
-  z-index: 2;
+  resize: none;
+  overflow: auto;
+  padding-left: 10px;
 }
 
 .text-tech-info {
-  position: absolute;
-  width: 366px;
-  top: 1218px;
-  left: 745px;
-  font-family: "PT Mono", var(--font-family-default);
-  color: var(--color-text-light);
+  font-family: var(--font-family-mono);
   font-size: var(--font-size-small);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-small);
-  text-align: left;
-  white-space: nowrap;
-  letter-spacing: -0.47px;
-  z-index: 2;
+  color: var(--color-text-light);
+  margin-top: 700px;
+  margin-right: 10px;
+  text-align: right;
 }

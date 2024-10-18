@@ -55,7 +55,6 @@ type File struct {
 	ID         int
 	ID_lang    int
 	ID_project int
-	Filename   string
 	Code       string
 }
 
@@ -168,8 +167,7 @@ var Files = []File{
 	{
 		ID:         0,
 		ID_lang:    1,
-		ID_project: 2,
-		Filename:   "main.cpp",
+		ID_project: 0,
 		Code: `
 #include <iostream>
 
@@ -199,7 +197,6 @@ int main() {
 		ID:         1,
 		ID_lang:    0,
 		ID_project: 1,
-		Filename:   "main.py",
 		Code: `
 from flask import Flask, render_template
 
@@ -217,7 +214,6 @@ if __name__ == '__main__':
 		ID:         2,
 		ID_lang:    3,
 		ID_project: 1,
-		Filename:   "index.html",
 		Code: `
 <!DOCTYPE html>
 <html lang="en">
@@ -240,7 +236,6 @@ if __name__ == '__main__':
 		ID:         3,
 		ID_lang:    4,
 		ID_project: 1,
-		Filename:   "index.css",
 		Code: `
 body {
 	font-family: Arial, sans-serif;

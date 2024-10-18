@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
-<html>
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ .Title }}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Mono:wght@400&display=swap"/>
     <link rel="stylesheet" href="/static/css/applications.css" />
-  </head>
-  <body>
+</head>
+<body>
     <div class="writing-code">
       <div class="header">
         <a href="/home" class="background-btn-back">
@@ -17,51 +16,35 @@
         </a>
       </div>
       <div class="tree">
-        <div class="text-tree">Файлы проекта</div>
-        <ul class="tree-list">
-          {{range .App}}
+        <!-- Цикл по файлам -->
+        {{ if .Files }}
+        <ul>
+          {{ range .Files }}
           <li>
-            <input type="radio" id="file{{.ID}}" name="file" />
-            <label for="file{{.ID}}" class="background-filename">{{.Filename}}</label>
+            {{ $fileLangID := .ID_lang }}
+            {{ $fileCode := .Code }}
+            {{ range $.Langs }}
+              {{ if eq .ID $fileLangID }}
+                <div class="code">
+                  <div class="lang-container">
+                    <img class="icon-lang" src="{{ .ImgLink }}" />
+                    <div class="text-lang">{{ .Name }}</div>
+                  </div>
+                  <div class="background-code">
+                    <div class="text-lines">
+                      1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9<br />10<br />11<br />12<br />13<br />14<br />15<br />16<br />17<br />18<br />19<br />20<br />21<br />22<br />23<br />24<br />25<br />26<br />27<br />28<br />29<br />30<br />31
+                    </div>
+                    <textarea class="field-write-code" placeholder="Введите код здесь...">{{ $fileCode }}</textarea>
+                    <div class="text-tech-info">Ln 20, Col 15, Space: 4</div>
+                  </div>
+                </div>
+              {{ end }}
+            {{ end }}
           </li>
-          {{end}}
+          {{ end }}
         </ul>
-      </div>
-      <div class="code">
-        <img class="icon-lang" src="{{ .Lang.ImgLink }}" />
-        <div class="text-lang">{{ .Lang.Name }}</div>
-        <div class="background-btn-send"><div class="text-btn-send">Сохранить</div></div>
-        <div class="background-code">
-          <div class="text-lines">
-            1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9<br />10<br />11<br />12<br />13<br />14<br />15<br />16<br />17<br />18<br />19<br />20<br />21<br />22<br />23<br />24<br />25<br />26<br />27<br />28<br />29<br />30<br />31
-          </div>
-          <textarea class="field-write-code" placeholder="Введите код здесь...">
-def binarySearch(array, x, low, high):
-    if high >= low:
-        mid = low + (high - low) // 2
-        # If found at mid, return the value
-        if array[mid] == x:
-            return mid
-        # Search the first half
-        elif array[mid] > x:
-            return binarySearch(array, x, low, mid - 1)
-        # Search the second half
-        else:
-            return binarySearch(array, x, mid + 1, high)
-    else:
-        return -1
-
-array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-x = int(input("Enter a number between 1 and 10: "))
-result = binarySearch(array, x, 0, len(array) - 1)
-if result != -1:
-    print("Element is present at position " + str(result))
-else:
-    print("Element not found")
-          </textarea>
-          <div class="text-tech-info">Ln 20, Col 15&nbsp;&nbsp; Space: 4</div>
-        </div>
+        {{ end }}
       </div>
     </div>
-  </body>
+</body>
 </html>

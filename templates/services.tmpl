@@ -42,21 +42,21 @@
         </a>
       </div>
       <img class="separator-line" src="image/line.png" />
-      <ul class="service-list">
-        {{ range .Langs }}
-        <li class="service-item">
+      <ul class="service-list two-columns">
+          {{ range .Langs }}
+          <li class="service-item">
             <a href="/info/{{ .ID }}" class="service-link">
                 <div class="service-title">{{ .Name }}</div>
                 <div class="service-description">{{ .ShortDescription }}</div>
                 <img class="service-image" src="{{ .ImgLink }}" alt="{{ .Name }}"/>
-                <div class="add-to-project-button-background"></div>
-                <div class="add-to-project-button-text">Добавить в проект</div>
             </a>
-        </li>
-        {{ end }}
+            <div class="add-to-project-button-background">
+                <div class="add-to-project-button-text">Добавить в проект</div>
+            </div>
+          </li>
+          {{ end }}
       </ul>
     </div>
-    <div class="spacer"></div>
   </body>
 </html>
           
