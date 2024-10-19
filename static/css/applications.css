@@ -6,6 +6,7 @@
   --color-background-light: #212830;
   --color-background-medium: #6f6f6f;
   --color-background-lightest: #ababab;
+  --color-background-darkest: #212830;
   --color-background-code: #151b23;
   --color-text-light: #ffffff;
   --color-text-dark: #000000;
@@ -155,4 +156,21 @@ ul {
   margin-top: 700px;
   margin-right: 10px;
   text-align: right;
+}
+
+.error {
+  text-align: center;
+  background-color: var(--color-background-darkest);
+  color: var(--color-text-light);
+  padding: 30px;
+  border-radius: var(--border-radius-default);
+  max-width: 400px;
+}
+
+h1 {
+  font-family: "Inter", var(--font-family-default);
+  font-size: var(--font-size-default);
+  line-height: var(--line-height-default);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
 }

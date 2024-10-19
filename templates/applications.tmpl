@@ -16,7 +16,6 @@
         </a>
       </div>
       <div class="tree">
-        <!-- Цикл по файлам -->
         {{ if .Files }}
         <ul>
           {{ range .Files }}
@@ -43,6 +42,10 @@
           </li>
           {{ end }}
         </ul>
+        {{ else }}
+          <div class="error">
+            <h1>Данный проект не найден</h1>
+          </div>
         {{ end }}
       </div>
     </div>

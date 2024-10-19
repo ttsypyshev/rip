@@ -34,19 +34,8 @@ body {
   position: relative;
 }
 
-.header, .icon-btn-back, .background-btn-back {
-  position: absolute;
-}
-
-.header {
-  width: 70px;
-  height: 70px;
-  top: 58px;
-  left: 89px;
-  border-radius: 5px;
-}
-
 .icon-btn-back {
+  position: absolute;
   width: 50px;
   height: 50px;
   top: 10px;
@@ -54,13 +43,26 @@ body {
 }
 
 .background-btn-back {
+  position: absolute;
   width: 70px;
   height: 70px;
-  top: 0;
-  left: 0;
+  top: 58px;
+  left: 89px;
   background-color: var(--color-background-lightest);
   border-radius: 5px;
 }
+
+.header {
+  display: flex;
+  justify-content: center; /* Центрирование по горизонтали */
+  align-items: center;      /* Центрирование по вертикали */
+  max-width: 1940px;        /* Ограничение максимальной ширины */
+  margin: 0 auto;           /* Центрирование на странице */
+  position: relative;       /* Позиционирование относительно родителя */
+  padding: 0;          /* Добавляем вертикальные отступы */
+  box-sizing: border-box;    /* Учитываем padding в расчёте ширины */
+}
+
 
 .file-count-text {
   position: absolute;
@@ -239,4 +241,21 @@ body {
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-default);
   white-space: nowrap;
+}
+
+.error {
+  text-align: center;
+  background-color: var(--color-background-darkest);
+  color: var(--color-text-light);
+  padding: 30px;
+  border-radius: var(--border-radius-default);
+  max-width: 400px;
+}
+
+h1 {
+  font-family: "Inter", var(--font-family-default);
+  font-size: var(--font-size-default);
+  line-height: var(--line-height-default);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
 }

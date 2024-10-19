@@ -1,7 +1,6 @@
 package api
 
 import (
-	"log"
 	"strings"
 	"time"
 )
@@ -48,7 +47,7 @@ type Project struct {
 	ID           int
 	CreationDate time.Time
 	CreationTime time.Time
-	Status       int //draft, completed, deleted
+	Status       int //draft 0, completed 1, deleted 2
 }
 
 type File struct {
@@ -191,7 +190,7 @@ int main() {
 
 	return 0;
 }
-		`,
+`,
 	},
 	{
 		ID:         1,
@@ -208,7 +207,7 @@ def home():
 
 if __name__ == '__main__':
 	app.run(debug=True)
-		`,
+`,
 	},
 	{
 		ID:         2,
@@ -230,7 +229,7 @@ if __name__ == '__main__':
 	</div>
 </body>
 </html>
-		`,
+`,
 	},
 	{
 		ID:         3,
@@ -261,73 +260,113 @@ h1 {
 p {
 	color: #666;
 }
-		`,
+`,
 	},
 }
 
-func GetServices() []Lang {
-	return Langs
+// Общие функции получения данных
+func getByID[T any](items []T, id int, idSelector func(T) int) (T, bool) {
+	for _, item := range items {
+		if idSelector(item) == id {
+			return item, true
+		}
+	}
+	var empty T
+	return empty, false
 }
 
-func GetApplications() []Project {
-	return Projects
+func getAll[T any](items []T) []T {
+	return items
+}
+
+// Получение всех сущностей
+func GetLangs() []Lang {
+	return getAll(Langs)
+}
+
+func GetProjects() []Project {
+	return getAll(Projects)
 }
 
 func GetFiles() []File {
-	return Files
+	return getAll(Files)
 }
 
-func parseList(listStr string) map[string]string {
-	result := make(map[string]string)
-
-	for _, line := range strings.Split(listStr, "\n") {
-		line = strings.TrimSpace(line)
-
-		if strings.Contains(line, ":") {
-			parts := strings.SplitN(line, ":", 2)
-			key := strings.TrimSpace(parts[0]) + ":"
-			value := strings.TrimSpace(parts[1])
-
-			result[key] = value
-		}
-	}
-
-	return result
+// Получение сущностей по ID
+func GetLangByID(langID int) (Lang, bool) {
+	return getByID(Langs, langID, func(lang Lang) int { return lang.ID })
 }
 
-func FindMaxProjectID() int {
-	maxID := -1
-	for _, project := range Projects {
-		if project.ID > maxID {
-			maxID = project.ID
-		}
-	}
-	return maxID
+func GetProjectByID(projectID int) (Project, bool) {
+	return getByID(Projects, projectID, func(project Project) int { return project.ID })
 }
 
+func GetFileByID(fileID int) (File, bool) {
+	return getByID(Files, fileID, func(file File) int { return file.ID })
+}
+
+// Получение файлов для конкретного проекта
 func GetFilesForProject(projectID int) []File {
 	var matchedFiles []File
-
 	for _, file := range Files {
 		if file.ID_project == projectID {
 			matchedFiles = append(matchedFiles, file)
 		}
 	}
-
 	return matchedFiles
 }
 
-func GetLangsForProject(matchedFiles []File, projectID int) []Lang {
-	var matchedLangs []Lang
+// Фильтрация языков по запросу
+func FilterLangsByQuery(langs []Lang, query string) []Lang {
+	var filteredLangs []Lang
+	lowerQuery := strings.ToLower(query)
 
-	for _, file := range matchedFiles {
-		log.Println(file)
-		if file.ID_lang < 0 || file.ID_lang >= len(Langs) {
-			log.Printf("Invalid ID_lang: %d for file %v", file.ID_lang, file)
+	for _, lang := range langs {
+		if strings.Contains(strings.ToLower(lang.Name), lowerQuery) {
+			filteredLangs = append(filteredLangs, lang)
+		}
+	}
+	return filteredLangs
+}
+
+// Парсинг списка в карту
+func ParseList(listStr string) map[string]string {
+	result := make(map[string]string)
+	lines := strings.Split(listStr, "\n")
+
+	for _, line := range lines {
+		line = strings.TrimSpace(line)
+		if line == "" || !strings.Contains(line, ":") {
 			continue
 		}
-		matchedLangs = append(matchedLangs, Langs[file.ID_lang])
-	}
 
-	return matchedLangs
+		parts := strings.SplitN(line, ":", 2)
+		key := strings.TrimSpace(parts[0]) + ":"
+		value := strings.TrimSpace(parts[1])
+		result[key] = value
+	}
+	return result
 }
+
+// func FindMaxProjectID() int {
+// 	maxID := -1
+// 	for _, project := range Projects {
+// 		if project.ID > maxID {
+// 			maxID = project.ID
+// 		}
+// 	}
+// 	return maxID
+// }
+
+// func GetLangsForProject(matchedFiles []File, projectID int) []Lang {
+// 	var matchedLangs []Lang
+// 	for _, file := range matchedFiles {
+// 		log.Println(file)
+// 		if file.ID_lang < 0 || file.ID_lang >= len(Langs) {
+// 			log.Printf("Invalid ID_lang: %d for file %v", file.ID_lang, file)
+// 			continue
+// 		}
+// 		matchedLangs = append(matchedLangs, Langs[file.ID_lang])
+// 	}
+// 	return matchedLangs
+// }

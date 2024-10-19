@@ -17,44 +17,48 @@
   </head>
   <body>
     <div class="services-container">
+      <a href="/home" class="background-btn-back">
+        <img class="icon-btn-back" src="/image/icon-btn-back.png" />
+      </a>
       <div class="header">
-        <a href="/home" class="background-btn-back">
-          <img class="icon-btn-back" src="/image/icon-btn-back.png" />
-        </a>
-      </div>
-      <div class="search-section">
+        <div class="search-section">
           <form action="/home" method="GET">
-              <input
-                  type="text"
-                  name="search"
-                  class="field-search-text"
-                  maxlength="100"
-                  placeholder="Поиск..."
-              />
-              <button type="submit" style="display: none;">Поиск</button>
-              <img class="search-icon" src="image/icon-find.png" />
+            <input
+              type="text"
+              name="search"
+              class="field-search-text"
+              maxlength="100"
+              placeholder="Поиск..."
+            />
+            <button type="submit" style="display: none;">Поиск</button>
+            <img class="search-icon" src="image/icon-find.png" />
           </form>
+        </div>
+        <div class="file-count-section">
+          <a href="/app/1" class="file-count">
+            <img class="file-count-icon" src="image/icon-count-files.png" />
+            <div class="file-count-text">3</div>
+          </a>
+        </div>
+        <img class="separator-line" src="image/line.png" />
       </div>
-      <div class="file-count-section">
-        <a href="/app/1" class="file-count">
-          <img class="file-count-icon" src="image/icon-count-files.png" />
-          <div class="file-count-text">3</div>
-        </a>
-      </div>
-      <img class="separator-line" src="image/line.png" />
       <ul class="service-list two-columns">
-          {{ range .Langs }}
-          <li class="service-item">
-            <a href="/info/{{ .ID }}" class="service-link">
-                <div class="service-title">{{ .Name }}</div>
-                <div class="service-description">{{ .ShortDescription }}</div>
-                <img class="service-image" src="{{ .ImgLink }}" alt="{{ .Name }}"/>
-            </a>
-            <div class="add-to-project-button-background">
-                <div class="add-to-project-button-text">Добавить в проект</div>
-            </div>
-          </li>
-          {{ end }}
+        {{ range .Langs }}
+        <li class="service-item">
+          <a href="/info/{{ .ID }}" class="service-link">
+            <div class="service-title">{{ .Name }}</div>
+            <div class="service-description">{{ .ShortDescription }}</div>
+            <img class="service-image" src="{{ .ImgLink }}" alt="{{ .Name }}"/>
+          </a>
+          <div class="add-to-project-button-background">
+            <div class="add-to-project-button-text">Добавить в проект</div>
+          </div>
+        </li>
+        {{ else }}
+          <div class="error">
+            <h1>Данный язык не найден</h1>
+          </div>
+        {{ end }}
       </ul>
     </div>
   </body>
