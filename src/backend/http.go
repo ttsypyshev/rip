@@ -13,6 +13,7 @@ func SetupRoutes(r *gin.Engine) {
 	r.GET("/home", handleHome)
 	r.GET("/info/:id", handleInfo)
 	r.GET("/app/:id", handleApp)
+	r.GET("/product", product)
 }
 
 func handleHome(c *gin.Context) {
@@ -78,4 +79,35 @@ func getIDParam(c *gin.Context, param string) (int, error) {
 		return 0, err
 	}
 	return id, nil
+}
+
+func product(c *gin.Context) {
+	id := c.Query("id") // получаем из запроса query string
+
+	if id != "" {
+		log.Printf("id recived %s\n", id)
+		intID, err := strconv.Atoi(id) // пытаемся привести это к числу
+		if err != nil {                // если не получилось
+			log.Printf("cant convert id %v", err)
+			c.Error(err)
+			return
+		}
+		repo, err := New("postgres://postgres:postgres@0.0.0.0:5432/code_inspector")
+
+		// получаем данные по товару
+		product, err := repo.GetProductByID(intID)
+		if err != nil { // если не получилось
+			log.Printf("cant get product by id %v", err)
+			c.Error(err)
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"product_price": product.CreationTime,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "try with id",
+	})
 }

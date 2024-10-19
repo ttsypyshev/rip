@@ -31,31 +31,35 @@ import (
 // 	Filename
 // 	Code
 
+// Lang представляет язык программирования.
 type Lang struct {
-	ID               int
-	Name             string
-	ImgLink          string
-	ShortDescription string
-	Author           string
-	Year             string
-	Version          string
-	Description      string
-	List             string
+	ID               int       `gorm:"primaryKey"`
+	Name             string    `gorm:"size:255"`
+	ImgLink          string    `gorm:"size:255"`
+	ShortDescription string    `gorm:"size:255"`
+	Author           string    `gorm:"size:255"`
+	Year             string    `gorm:"size:4"`
+	Version          string    `gorm:"size:50"`
+	Description      string    `gorm:"type:text"`
+	List             string    `gorm:"type:text"`
 }
 
+// Project представляет проект.
 type Project struct {
-	ID           int
+	ID           int       `gorm:"primaryKey"`
 	CreationDate time.Time
 	CreationTime time.Time
-	Status       int //draft 0, completed 1, deleted 2
+	Status       int
 }
 
+// File представляет файл проекта.
 type File struct {
-	ID         int
-	ID_lang    int
-	ID_project int
-	Code       string
+	ID         int       `gorm:"primaryKey"`
+	IDLang     int       `gorm:"column:id_lang"`
+	IDProject  int       `gorm:"column:id_project"`
+	Code       string    `gorm:"type:text"`
 }
+
 
 var Langs = []Lang{
 	{
@@ -165,8 +169,8 @@ var Projects = []Project{
 var Files = []File{
 	{
 		ID:         0,
-		ID_lang:    1,
-		ID_project: 0,
+		IDLang:    1,
+		IDProject: 0,
 		Code: `
 #include <iostream>
 
@@ -194,8 +198,8 @@ int main() {
 	},
 	{
 		ID:         1,
-		ID_lang:    0,
-		ID_project: 1,
+		IDLang:    0,
+		IDProject: 1,
 		Code: `
 from flask import Flask, render_template
 
@@ -211,8 +215,8 @@ if __name__ == '__main__':
 	},
 	{
 		ID:         2,
-		ID_lang:    3,
-		ID_project: 1,
+		IDLang:    3,
+		IDProject: 1,
 		Code: `
 <!DOCTYPE html>
 <html lang="en">
@@ -233,8 +237,8 @@ if __name__ == '__main__':
 	},
 	{
 		ID:         3,
-		ID_lang:    4,
-		ID_project: 1,
+		IDLang:    4,
+		IDProject: 1,
 		Code: `
 body {
 	font-family: Arial, sans-serif;
@@ -309,7 +313,7 @@ func GetFileByID(fileID int) (File, bool) {
 func GetFilesForProject(projectID int) []File {
 	var matchedFiles []File
 	for _, file := range Files {
-		if file.ID_project == projectID {
+		if file.IDProject == projectID {
 			matchedFiles = append(matchedFiles, file)
 		}
 	}
