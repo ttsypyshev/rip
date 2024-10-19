@@ -12,7 +12,7 @@ func main() {
 	log.Println("App start")
 
 	go func() {
-		if err := backend.StartServer(); err != nil {
+		if err := backend.Run(); err != nil {
 			log.Fatalf("Could not start server: %v", err)
 		}
 	}()

@@ -20,7 +20,7 @@
         <ul>
           {{ range .Files }}
           <li>
-            {{ $fileLangID := .ID_lang }}
+            {{ $fileLangID := .IDLang }}
             {{ $fileCode := .Code }}
             {{ range $.Langs }}
               {{ if eq .ID $fileLangID }}

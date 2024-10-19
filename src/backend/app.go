@@ -6,15 +6,30 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func StartServer() error {
+type App struct {
+	db *Db
+}
+
+func Run() error {
 	log.Println("Server starting up")
 
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/static", "./static")
 
-	SetupRoutes(r)
+	err := Migrate()
+	if err != nil {
+		log.Printf("Failed to migrate the database: %v", err)
+		return err
+	}
 
+	app, err := NewDB(FromEnv())
+	if err != nil {
+		log.Printf("Error initializing the database: %v", err)
+		return err
+	}
+
+	app.SetupRoutes(r)
 	if err := r.Run(); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
 		return err
