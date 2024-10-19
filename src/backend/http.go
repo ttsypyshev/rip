@@ -1,4 +1,4 @@
-package api
+package backend
 
 import (
 	"errors"
@@ -9,23 +9,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func StartServer() {
-	log.Println("Server starting up")
-
-	r := gin.Default()
-	r.LoadHTMLGlob("templates/*")     //tmpl
-	r.Static("/static", "./static")   //css
-	r.Static("/image", "./resources") //img
-
+func SetupRoutes(r *gin.Engine) {
 	r.GET("/home", handleHome)
 	r.GET("/info/:id", handleInfo)
 	r.GET("/app/:id", handleApp)
-
-	if err := r.Run(); err != nil {
-		log.Fatalf("Server failed to start: %v", err)
-	}
-
-	log.Println("Server stopped")
 }
 
 func handleHome(c *gin.Context) {
