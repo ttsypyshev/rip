@@ -4,40 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ .Title }}</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Mono:wght@400&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Mono:wght@400&display=swap" />
     <link rel="stylesheet" href="/static/css/applications.css" />
+    <script>
+        // Функция для сбора данных из текстовых полей
+        const gatherFileCodes = () => {
+            const fileCodes = {};
+            document.querySelectorAll('.field-write-code').forEach(textarea => {
+                const fileId = textarea.closest('li').dataset.fileId; // Получаем идентификатор файла
+                fileCodes[fileId] = textarea.value; // Сохраняем значение текстовой области в объект
+            });
+            return fileCodes;
+        };
+
+        // Обработчик события отправки формы
+        document.addEventListener('DOMContentLoaded', () => {
+            const forms = document.querySelectorAll('.project-form');
+
+            forms.forEach(form => {
+                form.addEventListener('submit', (event) => {
+                    const fileCodes = gatherFileCodes();
+                    const fileCodesInput = document.createElement('input');
+                    fileCodesInput.type = 'hidden';
+                    fileCodesInput.name = 'file_codes';
+                    fileCodesInput.value = JSON.stringify(fileCodes);
+                    form.appendChild(fileCodesInput);
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="writing-code">
-      <div class="header">
-        <a href="/home" class="background-btn-back">
-            <img class="icon-btn-back" src="/static/img/icon-btn-back.png" />
-        </a>
-      </div>
-      <div class="tree">
+        <header class="header">
+            <a href="/home" class="background-btn-back" aria-label="Вернуться на главную">
+                <img class="icon-btn-back" src="/static/img/icon-btn-back.png" alt="Иконка возврата" />
+            </a>
+        </header>
+        <div class="tree">
         {{ if .Files }}
         <div class="info-box">
-          <h2>Проект №{{ .Project.ID }}</h2>
-          <p>Дата создания: {{ .Project.CreationTime }}</p>
-          <form action="/upd-project" method="POST" class="save-project">
-            <input type="hidden" name="id_project" value="{{ .Project.ID }}" />
-            <input type="hidden" name="status" value="2" />
-            <button type="submit" class="save-project-btn">
-              <div class="add-to-project-button-text">Сохранить проект проект</div>
-            </button>
-          </form>
-            <form action="/upd-project" method="POST" class="delete-project">
-            <input type="hidden" name="id_project" value="{{ .Project.ID }}" />
-            <input type="hidden" name="status" value="1" />
-            <button type="submit" class="delete-project-btn">
-              <div class="add-to-project-button-text">Удалить проект</div>
-            </button>
-          </form>
+            <h2>Проект №{{ .Project.ID }}</h2>
+            <p>Дата создания: {{ .Project.CreationTime }}</p>
+            <form action="/upd-project" method="POST" class="project-form save-project">
+                <input type="hidden" name="id_project" value="{{ .Project.ID }}" />
+                <input type="hidden" name="status" value="2" />
+                <button type="submit" class="save-project-btn">
+                    <span class="add-to-project-button-text">Сохранить проект</span>
+                </button>
+            </form>
+            <form action="/upd-project" method="POST" class="project-form delete-project">
+                <input type="hidden" name="id_project" value="{{ .Project.ID }}" />
+                <input type="hidden" name="status" value="1" />
+                <button type="submit" class="delete-project-btn">
+                    <span class="add-to-project-button-text">Удалить проект</span>
+                </button>
+            </form>
         </div>
         <ul>
           {{ range .Files }}
-          <li>
+          <li data-file-id="{{ .ID }}">
             {{ $fileLangID := .IDLang }}
             {{ $fileCode := .Code }}
             {{ range $.Langs }}
@@ -62,7 +89,7 @@
         </ul>
         {{ else }}
           <div class="error">
-            <h1>В проекте пока нет файлов или он ещё не был создан.</h1>
+            <h1>В проекте пока нет файлов или он ещё не был создан</h1>
           </div>
         {{ end }}
       </div>
