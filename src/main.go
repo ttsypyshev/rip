@@ -11,6 +11,12 @@ import (
 func main() {
 	log.Println("App start")
 
+	err := backend.Migrate()
+	if err != nil {
+		log.Printf("Failed to migrate the database: %v", err)
+		return
+	}
+
 	go func() {
 		if err := backend.Run(); err != nil {
 			log.Fatalf("Could not start server: %v", err)

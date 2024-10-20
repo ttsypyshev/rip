@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"rip/database"
 	"strings"
+	"time"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
@@ -137,14 +138,16 @@ func (app *App) FilterLangsByQuery(query string) ([]DbLang, error) {
 // 	return count, nil
 // }
 
-func сreatingDraft(app *App) (int, error) {
-    var project DbProject
+func сreatingDraft(app *App, id_user int) (int, error) {
+	var project DbProject
 
-    if err := app.db.db.Where("status = ?", 0).First(&project).Error; err != nil {
+    if err := app.db.db.Where("status = ? AND id_user = ?", 0, id_user).First(&project).Error; err != nil {
         if err == gorm.ErrRecordNotFound {
-            newProject := DbProject{
-                Status: 0,
-            }
+			newProject := DbProject{
+				IDUser:       id_user,
+				CreationTime: time.Now(),
+				Status:       0,
+			}
 
             if err := app.db.db.Create(&newProject).Error; err != nil {
                 return -1, err
@@ -155,11 +158,11 @@ func сreatingDraft(app *App) (int, error) {
         return -1, err
     }
 
-    return project.ID, nil
+	return project.ID, nil
 }
 
-func (app *App) AddFile(id_lang int) error {
-	id_project, err := сreatingDraft(app)
+func (app *App) AddFile(id_lang int, id_user int) error {
+	id_project, err := сreatingDraft(app, id_user)
 	if err != nil {
 		return err
 	}
@@ -186,11 +189,30 @@ func (app *App) AddFile(id_lang int) error {
 func (app *App) UpdateProjectStatus(projectID int, newStatus int) error {
 	query := "UPDATE projects SET status = ? WHERE id = ?"
 
-	result:= app.db.db.Exec(query, newStatus, projectID)
+	result := app.db.db.Exec(query, newStatus, projectID)
 	if result.Error != nil {
 		return fmt.Errorf("failed to update project status: %w", result.Error)
 	}
 
+	return nil
+}
+
+func (app *App) UpdateFilesCode(idToCodeMap map[int]string) error {
+	for id, newCode := range idToCodeMap {
+		var file DbFile
+		if err := app.db.db.Where("id = ?", id).First(&file).Error; err != nil {
+			if err == gorm.ErrRecordNotFound {
+				return fmt.Errorf("file with id %d not found", id)
+			}
+			return err
+		}
+
+		file.Code = newCode
+
+		if err := app.db.db.Save(&file).Error; err != nil {
+			return fmt.Errorf("failed to update file with id %d: %v", id, err)
+		}
+	}
 	return nil
 }
 

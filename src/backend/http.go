@@ -12,8 +12,8 @@ func (app *App) SetupRoutes(r *gin.Engine) {
 	r.GET("/home", app.handleHome)
 	r.GET("/info/:id", app.handleInfo)
 	r.GET("/project/:id", app.handleApp)
-	r.POST("/add", app.handleAddService)
-	r.POST("/delete", app.handleDeleteService)
+	r.POST("/add-service", app.handleAddService)
+	r.POST("/upd-project", app.handleUpdateProject)
 }
 
 func (app *App) handleHome(c *gin.Context) {
@@ -88,20 +88,20 @@ func (app *App) handleApp(c *gin.Context) {
 	})
 }
 
-type Request_Add struct {
-	ID_lang int `json:"id_lang"`
+type RequestAdd struct {
+	IDUser int `json:"id_user"`
+	IDLang int `json:"id_lang"`
 }
 
 func (app *App) handleAddService(c *gin.Context) {
-	var req Request_Add
+	var req RequestAdd
 
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	err := app.AddFile(req.ID_lang)
-	if err != nil {
+	if err := app.AddFile(req.IDLang, req.IDUser); err != nil {
 		handleError(c, http.StatusNotFound, err)
 		return
 	}
@@ -109,22 +109,28 @@ func (app *App) handleAddService(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Услуга успешно добавлена", "status": true})
 }
 
-type Request_Delete struct {
-	ID_project int `json:"id_project"`
-	Status  int `json:"status"`
+type RequestUpdate struct {
+	IDProject int            `json:"id_project"`
+	Status    int            `json:"status"`
+	FileCodes map[int]string `json:"file_codes"`
 }
 
-func (app *App) handleDeleteService(c *gin.Context) {
-	var req Request_Delete
+
+func (app *App) handleUpdateProject(c *gin.Context) {
+	var req RequestUpdate
 
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	err := app.UpdateProjectStatus(req.ID_project, req.Status)
-	if err != nil {
+	if err := app.UpdateProjectStatus(req.IDProject, req.Status); err != nil {
 		handleError(c, http.StatusNotFound, err)
+		return
+	}
+
+	if err := app.UpdateFilesCode(req.FileCodes); err != nil {
+		handleError(c, http.StatusNotFound, errors.New("failed to update file"), err)
 		return
 	}
 

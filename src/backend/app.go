@@ -17,12 +17,6 @@ func Run() error {
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/static", "./static")
 
-	err := Migrate()
-	if err != nil {
-		log.Printf("Failed to migrate the database: %v", err)
-		return err
-	}
-
 	app, err := NewDB(FromEnv())
 	if err != nil {
 		log.Printf("Error initializing the database: %v", err)

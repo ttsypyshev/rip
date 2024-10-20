@@ -16,6 +16,7 @@ type Lang struct {
 
 type Project struct {
 	ID           int `gorm:"primaryKey"`
+	IDUser       int `gorm:"column:id_user"`
 	CreationTime time.Time
 	Status       int
 }
