@@ -16,7 +16,6 @@ type Lang struct {
 
 type Project struct {
 	ID           int `gorm:"primaryKey"`
-	CreationDate time.Time
 	CreationTime time.Time
 	Status       int
 }
@@ -26,4 +25,11 @@ type File struct {
 	IDLang    int    `gorm:"column:id_lang"`
 	IDProject int    `gorm:"column:id_project"`
 	Code      string `gorm:"type:text"`
+}
+
+type Users struct {
+	ID       int    `json:"id" gorm:"primaryKey"`
+	Login    string `gorm:"type:varchar(255)" json:"login"`
+	Password string `gorm:"type:varchar(255)" json:"-"`
+	IsAdmin  bool   `json:"is_admin"`
 }

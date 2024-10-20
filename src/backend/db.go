@@ -1,6 +1,7 @@
 package backend
 
 import (
+	"fmt"
 	"rip/database"
 	"strings"
 
@@ -125,6 +126,72 @@ func (app *App) FilterLangsByQuery(query string) ([]DbLang, error) {
 	}
 
 	return filteredLangs, nil
+}
+
+// func (app *App) CountProjects() (int64, error) {
+// 	var count int64
+// 	err := app.db.db.Model(&DbProject{}).Count(&count).Error
+// 	if err != nil {
+// 		return 0, err
+// 	}
+// 	return count, nil
+// }
+
+func сreatingDraft(app *App) (int, error) {
+    var project DbProject
+
+    if err := app.db.db.Where("status = ?", 0).First(&project).Error; err != nil {
+        if err == gorm.ErrRecordNotFound {
+            newProject := DbProject{
+                Status: 0,
+            }
+
+            if err := app.db.db.Create(&newProject).Error; err != nil {
+                return -1, err
+            }
+
+            return newProject.ID, nil
+        }
+        return -1, err
+    }
+
+    return project.ID, nil
+}
+
+func (app *App) AddFile(id_lang int) error {
+	id_project, err := сreatingDraft(app)
+	if err != nil {
+		return err
+	}
+
+	newFile := DbFile{
+		IDLang:    id_lang,
+		IDProject: id_project,
+	}
+
+	var existingFile DbFile
+	if err := app.db.db.Where("id_lang = ? AND id_project = ?", newFile.IDLang, newFile.IDProject).First(&existingFile).Error; err == nil {
+		return fmt.Errorf("file with IDLang %d and IDProject %d already exists", newFile.IDLang, newFile.IDProject)
+	} else if err != gorm.ErrRecordNotFound {
+		return err
+	}
+
+	if err := app.db.db.Create(&newFile).Error; err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (app *App) UpdateProjectStatus(projectID int, newStatus int) error {
+	query := "UPDATE projects SET status = ? WHERE id = ?"
+
+	result:= app.db.db.Exec(query, newStatus, projectID)
+	if result.Error != nil {
+		return fmt.Errorf("failed to update project status: %w", result.Error)
+	}
+
+	return nil
 }
 
 // func (a *app) CreateProduct(product Project) error {
