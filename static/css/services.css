@@ -54,13 +54,13 @@ body {
 
 .header {
   display: flex;
-  justify-content: center; /* Центрирование по горизонтали */
-  align-items: center;      /* Центрирование по вертикали */
-  max-width: 1940px;        /* Ограничение максимальной ширины */
-  margin: 0 auto;           /* Центрирование на странице */
-  position: relative;       /* Позиционирование относительно родителя */
-  padding: 0;          /* Добавляем вертикальные отступы */
-  box-sizing: border-box;    /* Учитываем padding в расчёте ширины */
+  justify-content: center;
+  align-items: center;
+  max-width: 1940px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 
