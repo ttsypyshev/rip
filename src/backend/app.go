@@ -19,7 +19,7 @@ func Run() error {
 
 	app, err := NewDB(FromEnv())
 	if err != nil {
-		log.Printf("Error initializing the database: %v", err)
+		log.Fatalf("Error initializing the database: %v", err)
 		return err
 	}
 

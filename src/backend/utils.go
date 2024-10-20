@@ -50,7 +50,7 @@ func handleError(c *gin.Context, statusCode int, err error, additionalErrs ...er
 		return
 	}
 
-	c.String(statusCode, err.Error())
+	c.JSON(statusCode, gin.H{"error": statusCode, "message": err.Error()})
 
 	var errorMessages strings.Builder
 	errorMessages.WriteString(err.Error())

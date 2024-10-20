@@ -13,7 +13,7 @@ func main() {
 
 	err := backend.Migrate()
 	if err != nil {
-		log.Printf("Failed to migrate the database: %v", err)
+		log.Fatalf("Failed to migrate the database: %v", err)
 		return
 	}
 

@@ -96,16 +96,7 @@ func (app *App) GetFileByID(fileID int) (DbFile, error) {
 	return getByID[DbFile](app, fileID)
 }
 
-// func (a *app) GetProductByID(id int) (*Project, error) {
-// 	product := &Project{}
-// 	err := a.db.First(product, "id = ?", id).Error // find product with id = 1
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return product, nil
-// }
-
-// Получение файлов для проекта с использованием GORM
+// Получение файлов для проекта
 func (app *App) GetFilesForProject(projectID int) ([]DbFile, error) {
 	var matchedFiles []DbFile
 	result := app.db.db.Where("id_project = ?", projectID).Find(&matchedFiles)
@@ -116,7 +107,7 @@ func (app *App) GetFilesForProject(projectID int) ([]DbFile, error) {
 	return matchedFiles, nil
 }
 
-// Фильтрация языков по запросу с использованием GORM
+// Фильтрация языков по запросу
 func (app *App) FilterLangsByQuery(query string) ([]DbLang, error) {
 	var filteredLangs []DbLang
 	lowerQuery := "%" + strings.ToLower(query) + "%"
@@ -129,47 +120,50 @@ func (app *App) FilterLangsByQuery(query string) ([]DbLang, error) {
 	return filteredLangs, nil
 }
 
-// func (app *App) CountProjects() (int64, error) {
-// 	var count int64
-// 	err := app.db.db.Model(&DbProject{}).Count(&count).Error
-// 	if err != nil {
-// 		return 0, err
-// 	}
-// 	return count, nil
-// }
+// Поиск последнего черновика для пользователя
+func findLastDraft(app *App, userID int) (int, error) {
+	var lastProject DbProject
 
-func сreatingDraft(app *App, id_user int) (int, error) {
-	var project DbProject
-
-    if err := app.db.db.Where("status = ? AND id_user = ?", 0, id_user).First(&project).Error; err != nil {
-        if err == gorm.ErrRecordNotFound {
-			newProject := DbProject{
-				IDUser:       id_user,
-				CreationTime: time.Now(),
-				Status:       0,
-			}
-
-            if err := app.db.db.Create(&newProject).Error; err != nil {
-                return -1, err
-            }
-
-            return newProject.ID, nil
-        }
-        return -1, err
-    }
-
-	return project.ID, nil
+	if err := app.db.db.Where("status = ? AND id_user = ?", 0, userID).First(&lastProject).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return -1, nil
+		}
+		return -1, err
+	}
+	return lastProject.ID, nil
 }
 
-func (app *App) AddFile(id_lang int, id_user int) error {
-	id_project, err := сreatingDraft(app, id_user)
+// Создание нового черновика или возврат существующего
+func createDraft(app *App, userID int) (int, error) {
+	projectID, err := findLastDraft(app, userID)
+	if err != nil {
+		return -1, err
+	} else if projectID == -1 {
+		newProject := DbProject{
+			IDUser:       userID,
+			CreationTime: time.Now(),
+			Status:       0,
+		}
+
+		if err := app.db.db.Create(&newProject).Error; err != nil {
+			return -1, err
+		}
+
+		return newProject.ID, nil
+	}
+	return projectID, nil
+}
+
+// Добавление файла к проекту для пользователя
+func (app *App) AddFile(langID int, userID int) error {
+	projectID, err := createDraft(app, userID)
 	if err != nil {
 		return err
 	}
 
 	newFile := DbFile{
-		IDLang:    id_lang,
-		IDProject: id_project,
+		IDLang:    langID,
+		IDProject: projectID,
 	}
 
 	var existingFile DbFile
@@ -186,6 +180,7 @@ func (app *App) AddFile(id_lang int, id_user int) error {
 	return nil
 }
 
+// Обновление статуса проекта
 func (app *App) UpdateProjectStatus(projectID int, newStatus int) error {
 	query := "UPDATE projects SET status = ? WHERE id = ?"
 
@@ -197,6 +192,7 @@ func (app *App) UpdateProjectStatus(projectID int, newStatus int) error {
 	return nil
 }
 
+// Обновление кода файлов по предоставленным мапам идентификаторов и кода
 func (app *App) UpdateFilesCode(idToCodeMap map[int]string) error {
 	for id, newCode := range idToCodeMap {
 		var file DbFile
@@ -216,29 +212,18 @@ func (app *App) UpdateFilesCode(idToCodeMap map[int]string) error {
 	return nil
 }
 
-// func (a *app) CreateProduct(product Project) error {
-// 	return a.db.Create(product).Error
-// }
+// Подсчет количества файлов в черновике пользователя
+func (app *App) CountFiles(userID int) (int64, error) {
+	projectID, err := findLastDraft(app, userID)
+	if err != nil {
+		return 0, err
+	}
 
-// func FindMaxProjectID() int {
-// 	maxID := -1
-// 	for _, project := range Projects {
-// 		if project.ID > maxID {
-// 			maxID = project.ID
-// 		}
-// 	}
-// 	return maxID
-// }
+	var count int64
+	if err := app.db.db.Model(&DbFile{}).Where("id_project = ?", projectID).Count(&count).Error; err != nil {
+		return 0, err
+	}
 
-// func GetLangsForProject(matchedFiles []File, projectID int) []Lang {
-// 	var matchedLangs []Lang
-// 	for _, file := range matchedFiles {
-// 		log.Println(file)
-// 		if file.ID_lang < 0 || file.ID_lang >= len(Langs) {
-// 			log.Printf("Invalid ID_lang: %d for file %v", file.ID_lang, file)
-// 			continue
-// 		}
-// 		matchedLangs = append(matchedLangs, Langs[file.ID_lang])
-// 	}
-// 	return matchedLangs
-// }
+	return count, nil
+}
+

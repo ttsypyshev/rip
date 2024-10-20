@@ -35,9 +35,16 @@ func (app *App) handleHome(c *gin.Context) {
 		return
 	}
 
+	count, err := app.CountFiles(1)
+	if err != nil {
+		handleError(c, http.StatusNotFound, errors.New("project was not created"), err)
+		return
+	}
+
 	c.HTML(http.StatusOK, "services.tmpl", gin.H{
 		"Title": "Langs",
 		"Langs": filteredLangs,
+		"Count": count,
 	})
 }
 
@@ -97,16 +104,22 @@ func (app *App) handleAddService(c *gin.Context) {
 	var req RequestAdd
 
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		handleError(c, http.StatusNotFound, errors.New("invalid data format"), err)
 		return
 	}
 
 	if err := app.AddFile(req.IDLang, req.IDUser); err != nil {
-		handleError(c, http.StatusNotFound, err)
+		handleError(c, http.StatusNotFound, errors.New("failed to add service for user"), err)
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Услуга успешно добавлена", "status": true})
+	count, err := app.CountFiles(req.IDUser)
+	if err != nil {
+		handleError(c, http.StatusNotFound, errors.New("project was not created"), err)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "message": "File added successfully", "count": count})
 }
 
 type RequestUpdate struct {
@@ -115,17 +128,16 @@ type RequestUpdate struct {
 	FileCodes map[int]string `json:"file_codes"`
 }
 
-
 func (app *App) handleUpdateProject(c *gin.Context) {
 	var req RequestUpdate
 
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		handleError(c, http.StatusNotFound, errors.New("invalid data format"), err)
 		return
 	}
 
 	if err := app.UpdateProjectStatus(req.IDProject, req.Status); err != nil {
-		handleError(c, http.StatusNotFound, err)
+		handleError(c, http.StatusNotFound, errors.New("failed to update project status"), err)
 		return
 	}
 
@@ -134,5 +146,5 @@ func (app *App) handleUpdateProject(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Статус проекта успешно обновлен", "status": true})
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "message": "Project status successfully updated"})
 }
