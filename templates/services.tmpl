@@ -35,7 +35,7 @@
           </form>
         </div>
         <div class="file-count-section">
-          <a href="/project/1" class="file-count">
+          <a href="/project/{{ $.ProjectID }}" class="file-count">
             <img class="file-count-icon" src="/static/img/icon-count-files.png" />
             <div class="file-count-text">{{ .Count }}</div>
           </a>
@@ -43,17 +43,23 @@
         <img class="separator-line" src="/static/img/line.png" />
       </div>
       <ul class="service-list two-columns">
-        {{ range .Langs }}
-        <li class="service-item">
-          <a href="/info/{{ .ID }}" class="service-link">
-            <div class="service-title">{{ .Name }}</div>
-            <div class="service-description">{{ .ShortDescription }}</div>
-            <img class="service-image" src="{{ .ImgLink }}" alt="{{ .Name }}"/>
-          </a>
-          <div class="add-to-project-button-background">
-            <div class="add-to-project-button-text">Добавить в проект</div>
-          </div>
-        </li>
+        {{ if .Langs }}
+          {{ range .Langs }}
+            <li class="service-item">
+              <a href="/info/{{ .ID }}" class="service-link">
+                <div class="service-title">{{ .Name }}</div>
+                <div class="service-description">{{ .ShortDescription }}</div>
+                <img class="service-image" src="{{ .ImgLink }}" alt="{{ .Name }}"/>
+              </a>
+              <form action="/add-service" method="POST" target="response-iframe" class="add-to-project-form">
+                <input type="hidden" name="id_user" value="{{ $.UserID }}" />
+                <input type="hidden" name="id_lang" value="{{ .ID }}" />
+                <button type="submit" class="add-to-project-button-background {{ if and (eq $.Status 1) (eq .ID $.LangID) }}success{{ else if and (eq $.Status 2) (eq .ID $.LangID) }}error{{ end }}">
+                  <div class="add-to-project-button-text">Добавить в проект</div>
+                </button>
+              </form>
+            </li>
+          {{ end }}
         {{ else }}
           <div class="error">
             <h1>Данный язык не найден</h1>
@@ -63,4 +69,3 @@
     </div>
   </body>
 </html>
-          

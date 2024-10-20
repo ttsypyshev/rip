@@ -8,6 +8,7 @@ import (
 
 type App struct {
 	db *Db
+	userID int
 }
 
 func Run() error {
@@ -22,6 +23,8 @@ func Run() error {
 		log.Fatalf("Error initializing the database: %v", err)
 		return err
 	}
+
+	app.userID = 1
 
 	app.SetupRoutes(r)
 	if err := r.Run(); err != nil {

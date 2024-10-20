@@ -2,6 +2,7 @@ package backend
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -17,34 +18,45 @@ func (app *App) SetupRoutes(r *gin.Engine) {
 }
 
 func (app *App) handleHome(c *gin.Context) {
+	langID, err := parseQueryParam(c, "langID")
+	if err != nil {
+		handleError(c, http.StatusBadRequest, errors.New("invalid langID"), err)
+		return
+	}
+
+	status, err := parseQueryParam(c, "status")
+	if err != nil {
+		handleError(c, http.StatusBadRequest, errors.New("invalid status"), err)
+		return
+	}
+
 	query := c.Query("langname")
-	services, err := app.GetLangs()
+	filteredLangs, err := app.getFilteredLangs(query)
 	if err != nil {
 		handleError(c, http.StatusNotFound, errors.New("failed to retrieve language information"), err)
 		return
 	}
 
-	var filteredLangs []DbLang
-	if query != "" {
-		filteredLangs, err = app.FilterLangsByQuery(query)
-	} else {
-		filteredLangs = services
-	}
+	count, err := app.CountFiles(app.userID)
 	if err != nil {
-		handleError(c, http.StatusNotFound, errors.New("failed to filter languages by query"), err)
+		handleError(c, http.StatusNotFound, errors.New("project was not created"), err)
 		return
 	}
 
-	count, err := app.CountFiles(1)
+	projectID, err := findLastDraft(app, app.userID)
 	if err != nil {
 		handleError(c, http.StatusNotFound, errors.New("project was not created"), err)
 		return
 	}
 
 	c.HTML(http.StatusOK, "services.tmpl", gin.H{
-		"Title": "Langs",
-		"Langs": filteredLangs,
-		"Count": count,
+		"Title":     "Langs",
+		"Langs":     filteredLangs,
+		"Count":     count,
+		"UserID":    app.userID,
+		"ProjectID": projectID,
+		"LangID":    langID,
+		"Status":    status,
 	})
 }
 
@@ -96,30 +108,25 @@ func (app *App) handleApp(c *gin.Context) {
 }
 
 type RequestAdd struct {
-	IDUser int `json:"id_user"`
-	IDLang int `json:"id_lang"`
+	IDUser int `form:"id_user" json:"id_user"`
+	IDLang int `form:"id_lang" json:"id_lang"`
 }
 
 func (app *App) handleAddService(c *gin.Context) {
 	var req RequestAdd
 
-	if err := c.ShouldBindJSON(&req); err != nil {
+	if err := c.ShouldBind(&req); err != nil {
 		handleError(c, http.StatusNotFound, errors.New("invalid data format"), err)
 		return
 	}
 
-	if err := app.AddFile(req.IDLang, req.IDUser); err != nil {
-		handleError(c, http.StatusNotFound, errors.New("failed to add service for user"), err)
-		return
-	}
-
-	count, err := app.CountFiles(req.IDUser)
+	err := app.AddFile(req.IDLang, req.IDUser)
 	if err != nil {
-		handleError(c, http.StatusNotFound, errors.New("project was not created"), err)
+		c.Redirect(http.StatusSeeOther, fmt.Sprintf("/home?langID=%d&status=%d", req.IDLang, 2))
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "message": "File added successfully", "count": count})
+	c.Redirect(http.StatusSeeOther, fmt.Sprintf("/home?langID=%d&status=%d", req.IDLang, 1))
 }
 
 type RequestUpdate struct {

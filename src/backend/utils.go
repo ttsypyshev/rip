@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -50,7 +51,7 @@ func handleError(c *gin.Context, statusCode int, err error, additionalErrs ...er
 		return
 	}
 
-	c.JSON(statusCode, gin.H{"error": statusCode, "message": err.Error()})
+	c.JSON(statusCode, gin.H{"status": false, "message": err.Error()})
 
 	var errorMessages strings.Builder
 	errorMessages.WriteString(err.Error())
@@ -61,4 +62,19 @@ func handleError(c *gin.Context, statusCode int, err error, additionalErrs ...er
 	}
 
 	log.Printf("Error: %s", errorMessages.String())
+}
+
+func parseQueryParam(c *gin.Context, key string) (int, error) {
+	param := c.Query(key)
+	if param == "" {
+		return 0, nil
+	}
+	return strconv.Atoi(param)
+}
+
+func (app *App) getFilteredLangs(query string) ([]DbLang, error) {
+	if query != "" {
+		return app.FilterLangsByQuery(query)
+	}
+	return app.GetLangs()
 }
