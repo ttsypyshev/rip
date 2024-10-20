@@ -18,7 +18,7 @@ type Project struct {
 	ID           int `gorm:"primaryKey"`
 	IDUser       int `gorm:"column:id_user"`
 	CreationTime time.Time
-	Status       int
+	Status       int // черновик, удалён, сформирован, завершён, отклонён
 }
 
 type File struct {
@@ -29,8 +29,8 @@ type File struct {
 }
 
 type Users struct {
-	ID       int    `json:"id" gorm:"primaryKey"`
-	Login    string `gorm:"type:varchar(255)" json:"login"`
-	Password string `gorm:"type:varchar(255)" json:"-"`
-	IsAdmin  bool   `json:"is_admin"`
+	ID       int    `gorm:"primaryKey"`
+	Login    string `gorm:"type:varchar(255)"`
+	Password string `gorm:"type:varchar(255)"`
+	IsAdmin  bool
 }

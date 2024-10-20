@@ -51,7 +51,7 @@
                 <div class="service-description">{{ .ShortDescription }}</div>
                 <img class="service-image" src="{{ .ImgLink }}" alt="{{ .Name }}"/>
               </a>
-              <form action="/add-service" method="POST" target="response-iframe" class="add-to-project-form">
+              <form action="/add-service" method="POST" class="add-to-project-form">
                 <input type="hidden" name="id_user" value="{{ $.UserID }}" />
                 <input type="hidden" name="id_lang" value="{{ .ID }}" />
                 <button type="submit" class="add-to-project-button-background {{ if and (eq $.Status 1) (eq .ID $.LangID) }}success{{ else if and (eq $.Status 2) (eq .ID $.LangID) }}error{{ end }}">

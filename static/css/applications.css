@@ -68,12 +68,12 @@ body {
 
 .tree {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  flex-direction: row;
   position: relative;
-  top: 200px;
-  align-items: center;
-  width: 100%;
+  top: 180px;
+  align-items: flex-start;
+  max-width: 1900px;
+  margin: 0 auto;
 }
 
 ul {
@@ -100,8 +100,7 @@ ul {
   width: 50px;
   height: 50px;
   object-fit: cover;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 5px 10px 5px 10px;
 }
 
 .text-lang {
@@ -121,7 +120,6 @@ ul {
   border-radius: 0 0 var(--border-radius-default) var(--border-radius-default);
   display: flex;
   flex-direction: row;
-  gap: 20px;
 }
 
 .text-lines {
@@ -159,12 +157,14 @@ ul {
 }
 
 .error {
-  text-align: center;
+  position: absolute;
+  left: 35%;
+  top: 100px;
   background-color: var(--color-background-darkest);
   color: var(--color-text-light);
   padding: 30px;
   border-radius: var(--border-radius-default);
-  max-width: 400px;
+  max-width: 500px;
 }
 
 h1 {
@@ -173,4 +173,69 @@ h1 {
   line-height: var(--line-height-default);
   font-weight: var(--font-weight-bold);
   margin: 0;
+}
+
+.info-box {
+  position: sticky;
+  top: 20px;
+  margin-top: 20px;
+  left: calc(50% + 750px);
+  transform: translateX(-50%);
+  width: 250px;
+  background-color: var(--color-background-medium);
+  border-radius: var(--border-radius-default);
+  padding: 15px;
+  z-index: 1000;
+}
+
+.add-to-project-button-background {
+  position: absolute;
+  top: 135px;
+  left: 30px;
+  width: 310px;
+  height: 60px;
+  background-color: var(--color-background-light);
+  border-radius: var(--border-radius-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.add-to-project-button-background.success {
+  animation: successAnimation 3s forwards;
+}
+
+.add-to-project-button-background.error {
+  animation: errorAnimation 3s forwards;
+}
+
+.add-to-project-button-background:hover {
+  transform: scale(1.05);
+  background-color: #d9d9d9;
+}
+
+@keyframes successAnimation {
+  0% {
+    background-color: #d9d9d9;
+  }
+  20% {
+    background-color: #28a745;
+  }
+  100% {
+    background-color: var(--color-background-light);
+  }
+}
+
+@keyframes errorAnimation {
+  0% {
+    background-color: #d9d9d9;
+  }
+  20% {
+    background-color: #dc3545;
+  }
+  100% {
+    background-color: var(--color-background-light);
+  }
 }

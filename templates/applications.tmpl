@@ -17,6 +17,24 @@
       </div>
       <div class="tree">
         {{ if .Files }}
+        <div class="info-box">
+          <h2>Проект №{{ .Project.ID }}</h2>
+          <p>Дата создания: {{ .Project.CreationTime }}</p>
+          <form action="/upd-project" method="POST" class="save-project">
+            <input type="hidden" name="id_project" value="{{ .Project.ID }}" />
+            <input type="hidden" name="status" value="2" />
+            <button type="submit" class="save-project-btn">
+              <div class="add-to-project-button-text">Сохранить проект проект</div>
+            </button>
+          </form>
+            <form action="/upd-project" method="POST" class="delete-project">
+            <input type="hidden" name="id_project" value="{{ .Project.ID }}" />
+            <input type="hidden" name="status" value="1" />
+            <button type="submit" class="delete-project-btn">
+              <div class="add-to-project-button-text">Удалить проект</div>
+            </button>
+          </form>
+        </div>
         <ul>
           {{ range .Files }}
           <li>
@@ -44,7 +62,7 @@
         </ul>
         {{ else }}
           <div class="error">
-            <h1>Данный проект не найден</h1>
+            <h1>В проекте пока нет файлов или он ещё не был создан.</h1>
           </div>
         {{ end }}
       </div>

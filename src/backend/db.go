@@ -155,12 +155,7 @@ func createDraft(app *App, userID int) (int, error) {
 }
 
 // Добавление файла к проекту для пользователя
-func (app *App) AddFile(langID int, userID int) error {
-	projectID, err := createDraft(app, userID)
-	if err != nil {
-		return err
-	}
-
+func (app *App) AddFile(projectID, langID, userID int) error {
 	newFile := DbFile{
 		IDLang:    langID,
 		IDProject: projectID,
@@ -226,4 +221,3 @@ func (app *App) CountFiles(userID int) (int64, error) {
 
 	return count, nil
 }
-

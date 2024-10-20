@@ -3,6 +3,7 @@ package backend
 import (
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -89,6 +90,12 @@ func (app *App) handleApp(c *gin.Context) {
 		return
 	}
 
+	project, err := app.GetProjectByID(id)
+	if err != nil {
+		handleError(c, http.StatusNotFound, errors.New("failed to retrieve language information"), err)
+		return
+	}
+
 	files, err := app.GetFilesForProject(id)
 	if err != nil {
 		handleError(c, http.StatusNotFound, errors.New("failed to retrieve project files"), err)
@@ -102,6 +109,7 @@ func (app *App) handleApp(c *gin.Context) {
 
 	c.HTML(http.StatusOK, "applications.tmpl", gin.H{
 		"Title": "Project",
+		"Project": project,
 		"Files": files,
 		"Langs": langs,
 	})
@@ -120,25 +128,32 @@ func (app *App) handleAddService(c *gin.Context) {
 		return
 	}
 
-	err := app.AddFile(req.IDLang, req.IDUser)
+	projectID, err := createDraft(app, req.IDUser)
 	if err != nil {
+		handleError(c, http.StatusNotFound, errors.New("error creating project"), err)
+		return
+	}
+
+	if err := app.AddFile(projectID, req.IDLang, req.IDUser); err != nil {
+		log.Printf("INFO: Navigating to home page at URL: {URL}/home?langID=%d&status=%d", req.IDLang, 2)
 		c.Redirect(http.StatusSeeOther, fmt.Sprintf("/home?langID=%d&status=%d", req.IDLang, 2))
 		return
 	}
 
+	log.Printf("INFO: Navigating to home page at URL: {URL}/home?langID=%d&status=%d", req.IDLang, 1)
 	c.Redirect(http.StatusSeeOther, fmt.Sprintf("/home?langID=%d&status=%d", req.IDLang, 1))
 }
 
 type RequestUpdate struct {
-	IDProject int            `json:"id_project"`
-	Status    int            `json:"status"`
-	FileCodes map[int]string `json:"file_codes"`
+	IDProject int            `form:"id_project" json:"id_project"`
+	Status    int            `form:"status" json:"status"`
+	FileCodes map[int]string `form:"file_codes" json:"file_codes"`
 }
 
 func (app *App) handleUpdateProject(c *gin.Context) {
 	var req RequestUpdate
 
-	if err := c.ShouldBindJSON(&req); err != nil {
+	if err := c.ShouldBind(&req); err != nil {
 		handleError(c, http.StatusNotFound, errors.New("invalid data format"), err)
 		return
 	}
@@ -153,5 +168,6 @@ func (app *App) handleUpdateProject(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "message": "Project status successfully updated"})
+	log.Printf("INFO: Navigating to home page at URL: {URL}/home")
+	c.Redirect(http.StatusSeeOther, "/home")
 }
