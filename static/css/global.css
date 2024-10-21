@@ -1,52 +1,47 @@
 :root {
-    /* Шрифты */
     --font-family-default: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, 'Helvetica Neue', Arial;
-    --font-family-mono: 'PT Mono', monospace;
+    --font-family-mono: PT Mono, monospace;
 
-    /* Цвета фонов */
-    --color-background-dark: #0d1117;
-    --color-background-darkest: #212830;
-    --color-background-light: #cecece;
-    --color-background-lightest: #ababab;
-    --color-bg-lightest: #f0f0f0;
-    --color-background-medium: #6f6f6f;
-    --color-bg-green: #28a745;
-    --color-bg-red: #dc3545;
-    --color-background-muted: #d9d9d9;
-    --color-background-code: #151b23;
+    --background-color-darkest: #0d1117;
+    --background-color-dark: #212830;
+    --background-color-medium: #6f6f6f;
+    --background-color-muted: #d9d9d9;
+    --background-color-light: #ababab;
+    --background-color-lightest: #cecece;
 
-    /* Цвета текста */
-    --color-text-light: #ffffff;
-    --color-text-dark: #000000;
-    --color-text-muted: #d6d6d6;
+    --background-color-code: #151b23;
+    --background-color-green: #28a745;
+    --background-color-red: #dc3545;
 
-    /* Границы и радиусы */
-    --color-border-light: #ffffff;
-    --color-border-dark: #000000;
-    --border-radius-extra-small: 5px;
-    --border-radius-small: 15px;
-    --border-radius-default: 20px;
-    --border-radius-large: 25px;
-    --border-radius-extra-large: 40px;
+    --text-color-light: #ffffff;
+    --text-color-dark: #000000;
+    --text-color-muted: #d6d6d6;
 
-    /* Шрифт и размеры */
-    --font-size-smallest: 14px;
-    --font-size-extra-small: 16px;
-    --font-size-large: 35px;
-    --font-size-default: 30px;
-    --font-size-small: 25px;
+    --border-color-light: #ffffff;
+    --border-color-dark: #000000;
+    --border-radius-xs: 5px;
+    --border-radius-sm: 15px;
+    --border-radius: 20px;
+    --border-radius-lg: 25px;
+    --border-radius-xl: 40px;
+
+    --font-size-xs: 14px;
+    --font-size-sm: 16px;
+    --font-size: 25px;
+    --font-size-lg: 30px;
+    --font-size-xl: 35px;
     --font-size-subtitle: 40px;
     --font-size-title: 55px;
 
-    /* Высота строки */
-    --line-height-large: 53px;
-    --line-height-default: 45px;
-    --line-height-minismal: 36px;
-    --line-height-small: 27px;
-    --line-height-default-number: 1.5;
-    --line-height-small-number: 1.4;
+    --line-height-sm: 27px;
+    --line-height: 36px;
+    --line-height-lg: 45px;
+    --line-height-xl: 53px;
+    --line-height-subtitle: 60px;
+    --line-height-title: 82.5px;
+    --line-height-small: 1.4;
+    --line-height-large: 1.5;
 
-    /* Жирность шрифта */
     --font-weight-regular: 400;
     --font-weight-bold: 700;
 }

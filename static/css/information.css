@@ -1,5 +1,5 @@
 body {
-  background-color: var(--color-background-dark);
+  background-color: var(--background-color-darkest);
   margin: 0;
   padding: 0;
 }
@@ -10,15 +10,30 @@ body {
   position: relative;
 }
 
-.header, .icon-btn-back, .background-btn-back {
-  position: absolute;
-}
-
 .header {
+  position: absolute;
   width: 70px;
   height: 70px;
   top: 58px;
   left: 89px;
+  border-radius: 5px;
+}
+
+.icon-btn-back {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 10px;
+  left: 10px;
+}
+
+.background-btn-back {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  top: 0;
+  left: 0;
+  background-color: var(--background-color-lightest);
   border-radius: 5px;
 }
 
@@ -33,57 +48,39 @@ body {
   box-sizing: border-box;
 }
 
-.icon-btn-back {
-  width: 50px;
-  height: 50px;
-  top: 10px;
-  left: 10px;
-}
-
-.background-btn-back {
-  width: 70px;
-  height: 70px;
-  top: 0;
-  left: 0;
-  background-color: var(--color-background-lightest);
-  border-radius: 5px;
-}
-
 .title {
   position: absolute;
   width: 759px;
   height: 217px;
   top: 226px;
   left: 312px;
-  background-color: var(--color-background-muted);
+  background-color: var(--background-color-muted);
   border-radius: 30px;
 }
 
-.text-name-lang {
+.text-name-lang,
+.text-description-lang {
   position: absolute;
-  width: 639px;
-  top: 12px;
   left: 27px;
   font-family: "Inter", var(--font-family-default);
   font-weight: var(--font-weight-regular);
-  color: var(--color-text-dark);
-  font-size: 55px;
+  color: var(--text-color-dark);
+}
+
+.text-name-lang {
+  width: 639px;
+  top: 12px;
+  font-size: var(--font-size-title);
   letter-spacing: -1.04px;
-  line-height: 82.5px;
-  white-space: nowrap;
+  line-height: var(--line-height-title);
 }
 
 .text-description-lang {
-  position: absolute;
   width: 679px;
   top: 83px;
-  left: 27px;
-  font-family: "Inter", var(--font-family-default);
-  font-weight: var(--font-weight-regular);
-  color: var(--color-text-dark);
-  font-size: 40px;
+  font-size: var(--font-size-subtitle);
   letter-spacing: -0.76px;
-  line-height: 60px;
+  line-height: var(--line-height-subtitle);
 }
 
 .img-lang {
@@ -101,10 +98,9 @@ body {
   height: 217px;
   top: 226px;
   left: 1120px;
-  background-color: var(--color-background-darkest);
+  background-color: var(--background-color-dark);
   border-radius: 20px;
-  border: 2px solid;
-  border-color: var(--color-border-light);
+  border: 2px solid var(--border-color-light);
 }
 
 .tag-basic-info {
@@ -112,23 +108,15 @@ body {
   width: 457px;
   left: 15px;
   font-family: "Inter", var(--font-family-default);
-  color: var(--color-text-light);
-  font-size: 27px;
-  line-height: 45px;
+  color: var(--text-color-light);
+  font-size: var(--font-size);
+  line-height: var(--line-height-lg);
   font-weight: var(--font-weight-bold);
 }
 
-.tag-basic-info-1 {
-  top: 0px;
-}
-
-.tag-basic-info-2 {
-  top: 70px;
-}
-
-.tag-basic-info-3 {
-  top: 140px;
-}
+.tag-basic-info-1 { top: 0px; }
+.tag-basic-info-2 { top: 70px; }
+.tag-basic-info-3 { top: 140px; }
 
 .subtext-basic-info {
   position: absolute;
@@ -136,22 +124,14 @@ body {
   left: 15px;
   font-family: "Inter", var(--font-family-default);
   font-weight: var(--font-weight-regular);
-  color: var(--color-text-light);
-  font-size: var(--font-size-small);
-  line-height: 45px;
+  color: var(--text-color-light);
+  font-size: var(--font-size);
+  line-height: var(--line-height-lg);
 }
 
-.subtext-basic-info-1 {
-  top: 30px;
-}
-
-.subtext-basic-info-2 {
-  top: 100px;
-}
-
-.subtext-basic-info-3 {
-  top: 170px;
-}
+.subtext-basic-info-1 { top: 30px; }
+.subtext-basic-info-2 { top: 100px; }
+.subtext-basic-info-3 { top: 170px; }
 
 .background-additional-info {
   position: absolute;
@@ -160,17 +140,17 @@ body {
   top: 481px;
   left: 312px;
   padding: 30px;
-  background-color: var(--color-background-darkest);
+  background-color: var(--background-color-dark);
   border-radius: 20px;
   box-sizing: border-box;
 }
 
 .text-additional-info {
-  color: var(--color-text-light);
+  color: var(--text-color-light);
   font-family: "Inter", var(--font-family-default);
-  font-size: var(--font-size-small);
+  font-size: var(--font-size);
   letter-spacing: -0.47px;
-  line-height: 1.5;
+  line-height: var(--line-height-large);
 }
 
 .features-list {
@@ -184,10 +164,10 @@ body {
   margin-bottom: 40px;
   counter-increment: list-counter;
   position: relative;
-  color: var(--color-text-light);
+  color: var(--text-color-light);
   font-family: "Inter", var(--font-family-default);
-  font-size: var(--font-size-small);
-  line-height: 1.5;
+  font-size: var(--font-size);
+  line-height: var(--line-height-large);
   letter-spacing: -1.9%;
 }
 

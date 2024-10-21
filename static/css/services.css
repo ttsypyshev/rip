@@ -1,6 +1,5 @@
-
 body {
-  background-color: var(--color-background-dark);
+  background-color: var(--background-color-darkest);
   margin: 0;
   padding: 0;
 }
@@ -25,8 +24,8 @@ body {
   height: 70px;
   top: 58px;
   left: 89px;
-  background-color: var(--color-background-lightest);
-  border-radius: 5px;
+  background-color: var(--background-color-lightest);
+  border-radius: var(--border-radius-xs);
 }
 
 .header {
@@ -35,32 +34,27 @@ body {
   align-items: center;
   max-width: 1940px;
   margin: 0 auto;
-  position: relative;
   padding: 0;
+  position: relative;
   box-sizing: border-box;
 }
-
 
 .file-count-text {
   position: absolute;
   top: 33px;
   left: 40px;
   font-family: "Inter", var(--font-family-default);
-  color: var(--color-text-light);
-  font-size: var(--font-size-small);
+  color: var(--text-color-light);
+  font-size: var(--font-size);
   font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-small);
+  line-height: var(--line-height-sm);
   text-align: center;
   white-space: nowrap;
-  letter-spacing: 0;
   z-index: 5;
 }
 
 .file-count-icon {
   filter: brightness(0) invert(1);
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 95px;
   height: 85px;
 }
@@ -69,13 +63,11 @@ body {
   position: relative;
   left: 81px;
   width: 1050px;
-  max-width: 1050px;
   height: 75px;
   font-family: "Inter", var(--font-family-default);
-  color: var(--color-text-dark);
-  font-size: var(--font-size-default);
+  color: var(--text-color-dark);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-regular);
-  text-align: left;
   background-color: transparent;
   box-sizing: border-box;
   white-space: nowrap;
@@ -83,14 +75,13 @@ body {
   resize: none;
   outline: none;
   border: none;
-  letter-spacing: 0;
   z-index: 5;
 }
 
 .field-search-text::placeholder {
   font-family: "Inter", var(--font-family-default);
-  font-size: var(--font-size-default);
-  color: var(--color-text-dark);
+  font-size: var(--font-size-lg);
+  color: var(--text-color-dark);
 }
 
 .search-icon {
@@ -107,7 +98,7 @@ body {
   left: 244px;
   width: 1432px;
   height: 1px;
-  background-color: var(--color-border-light);
+  background-color: var(--border-color-light);
 }
 
 .search-section,
@@ -127,17 +118,17 @@ body {
   left: 314px;
   width: 1161px;
   height: 75px;
-  background-color: var(--color-background-light);
-  border-radius: var(--border-radius-extra-large);
+  background-color: var(--background-color-lightest);
+  border-radius: var(--border-radius-xl);
 }
 
 .service-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
-  padding: 0;
   top: 370px;
-  margin: auto;
+  gap: 30px;
+  margin: 0 auto;
+  padding: 0;
   position: relative;
   width: 1500px;
   list-style-type: none;
@@ -146,8 +137,8 @@ body {
 .service-item {
   width: calc(50% - 20px);
   height: 220px;
-  border-radius: var(--border-radius-default);
-  background-color: var(--color-background-darkest);
+  border-radius: var(--border-radius);
+  background-color: var(--background-color-dark);
   position: relative;
 }
 
@@ -168,10 +159,10 @@ body {
   padding-top: 10px;
   margin-left: 20px;
   font-family: "Inter", var(--font-family-default);
-  color: var(--color-text-light);
-  font-size: var(--font-size-large);
+  color: var(--text-color-light);
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-large);
+  line-height: var(--line-height-xl);
   text-align: left;
   white-space: nowrap;
 }
@@ -180,12 +171,11 @@ body {
   margin-left: 20px;
   max-width: 550px;
   font-family: "PT Mono", var(--font-family-default);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-small);
+  color: var(--text-color-muted);
+  font-size: var(--font-size);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-small);
+  line-height: var(--line-height-sm);
   text-align: left;
-  white-space: normal;
 }
 
 .service-image {
@@ -203,13 +193,15 @@ body {
   left: 30px;
   width: 310px;
   height: 60px;
-  background-color: var(--color-background-light);
-  border-radius: var(--border-radius-large);
+  background-color: var(--background-color-lightest);
+  border-radius: var(--border-radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.2s ease;
   cursor: pointer;
+  border: none;
+  outline: none;
 }
 
 .add-to-project-button-background.success {
@@ -222,55 +214,55 @@ body {
 
 .add-to-project-button-background:hover {
   transform: scale(1.05);
-  background-color: var(--color-background-muted);
+  background-color: var(--background-color-muted);
 }
 
 @keyframes successAnimation {
   0% {
-    background-color: var(--color-background-muted);
+    background-color: var(--background-color-muted);
   }
   20% {
-    background-color: var(--color-bg-green);
+    background-color: var(--background-color-green);
   }
   100% {
-    background-color: var(--color-background-light);
+    background-color: var(--background-color-lightest);
   }
 }
 
 @keyframes errorAnimation {
   0% {
-    background-color: var(--color-background-muted);
+    background-color: var(--background-color-muted);
   }
   20% {
-    background-color: var(--color-bg-red);
+    background-color: var(--background-color-red);
   }
   100% {
-    background-color: var(--color-background-light);
+    background-color: var(--background-color-lightest);
   }
 }
 
 .add-to-project-button-text {
   font-family: "Inter", var(--font-family-default);
-  color: var(--color-text-dark);
-  font-size: var(--font-size-default);
+  color: var(--text-color-dark);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-default);
+  line-height: var(--line-height-lg);
   white-space: nowrap;
 }
 
 .error {
   text-align: center;
-  background-color: var(--color-background-darkest);
-  color: var(--color-text-light);
+  background-color: var(--background-color-dark);
+  color: var(--text-color-light);
   padding: 30px;
-  border-radius: var(--border-radius-large);
+  border-radius: var(--border-radius-lg);
   max-width: 400px;
 }
 
 h1 {
   font-family: "Inter", var(--font-family-default);
-  font-size: var(--font-size-default);
-  line-height: var(--line-height-default);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
   font-weight: var(--font-weight-bold);
   margin: 0;
 }
