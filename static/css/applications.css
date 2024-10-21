@@ -1,31 +1,3 @@
-:root {
-  --font-family-default: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Ubuntu', 'Cantarell', 'Noto Sans', sans-serif, 'BlinkMacSystemFont', 'Helvetica Neue', Arial;
-  --font-family-mono: 'PT Mono', monospace;
-  
-  --color-background-dark: #0d1117;
-  --color-background-light: #212830;
-  --color-background-medium: #6f6f6f;
-  --color-background-lightest: #ababab;
-  --color-background-darkest: #212830;
-  --color-background-code: #151b23;
-  --color-text-light: #ffffff;
-  --color-text-dark: #000000;
-  --color-btn-back: #238636;
-  --color-border: #ffffff;
-
-  --font-size-default: 16px;
-  --font-size-large: 20px;
-  --font-size-small: 14px;
-  
-  --line-height-default: 1.5;
-  --line-height-small: 1.4;
-  
-  --border-radius-default: 15px;
-  --border-radius-large: 25px;
-  --font-weight-regular: 400;
-  --font-weight-bold: 700;
-}
-
 body {
   background-color: var(--color-background-dark);
   margin: 0;
@@ -84,8 +56,8 @@ ul {
 .code {
   position: relative;
   width: 1150px;
-  background-color: var(--color-background-light);
-  border-radius: var(--border-radius-default);
+  background-color: var(--color-background-darkest);
+  border-radius: var(--border-radius-small);
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
@@ -106,7 +78,7 @@ ul {
 .text-lang {
   font-family: "Inter", var(--font-family-default);
   color: var(--color-text-light);
-  font-size: var(--font-size-default);
+  font-size: var(--font-size-extra-small);
   font-weight: var(--font-weight-regular);
   line-height: 45px;
   text-align: left;
@@ -116,17 +88,17 @@ ul {
 
 .background-code {
   background-color: var(--);;
-  border: 1px solid var(--color-border);
-  border-radius: 0 0 var(--border-radius-default) var(--border-radius-default);
+  border: 1px solid var(--color-border-light);
+  border-radius: 0 0 var(--border-radius-small) var(--border-radius-small);
   display: flex;
   flex-direction: row;
 }
 
 .text-lines {
-  font-family: var(--font-family-mono);
+  font-family: "Inter", var(--font-family-mono);
   color: var(--color-text-light);
-  font-size: var(--font-size-default);
-  line-height: var(--line-height-small);
+  font-size: var(--font-size-extra-small);
+  line-height: var(--line-height-small-number);
   text-align: right;
   white-space: nowrap;
   margin-top: 5px;
@@ -136,10 +108,10 @@ ul {
 .field-write-code {
   flex-grow: 1;
   background-color: transparent;
-  font-family: var(--font-family-mono);
+  font-family: "Inter", var(--font-family-mono);
   color: var(--color-text-light);
-  font-size: var(--font-size-default);
-  line-height: var(--line-height-small);
+  font-size: var(--font-size-extra-small);
+  line-height: var(--line-height-small-number);
   border: none;
   outline: none;
   resize: none;
@@ -148,8 +120,8 @@ ul {
 }
 
 .text-tech-info {
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-small);
+  font-family: "Inter", var(--font-family-mono);
+  font-size: var(--font-size-smallest);
   color: var(--color-text-light);
   margin-top: 700px;
   margin-right: 10px;
@@ -163,14 +135,14 @@ ul {
   background-color: var(--color-background-darkest);
   color: var(--color-text-light);
   padding: 30px;
-  border-radius: var(--border-radius-default);
+  border-radius: var(--border-radius-small);
   max-width: 500px;
 }
 
 h1 {
   font-family: "Inter", var(--font-family-default);
-  font-size: var(--font-size-default);
-  line-height: var(--line-height-default);
+  font-size: var(--font-size-extra-small);
+  line-height: var(--line-height-default-number);
   font-weight: var(--font-weight-bold);
   margin: 0;
 }
@@ -183,59 +155,48 @@ h1 {
   transform: translateX(-50%);
   width: 250px;
   background-color: var(--color-background-medium);
-  border-radius: var(--border-radius-default);
+  border-radius: var(--border-radius-small);
   padding: 15px;
   z-index: 1000;
 }
 
-.add-to-project-button-background {
-  position: absolute;
-  top: 135px;
-  left: 30px;
-  width: 310px;
-  height: 60px;
-  background-color: var(--color-background-light);
-  border-radius: var(--border-radius-default);
+.project-btn {
+  width: 230px;
+  height: 40px;
+  margin-left: 5px;
+  background-color: var(--color-background-lightest);
+  border-radius: var(--border-radius-small);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
   cursor: pointer;
+  border: 1px solid black;
 }
 
-.add-to-project-button-background.success {
-  animation: successAnimation 3s forwards;
+.save-project-btn{
+  margin-bottom: 10px;
 }
 
-.add-to-project-button-background.error {
-  animation: errorAnimation 3s forwards;
-}
-
-.add-to-project-button-background:hover {
+.project-btn:hover {
   transform: scale(1.05);
-  background-color: #d9d9d9;
+  border: none;
+  outline: none;
 }
 
-@keyframes successAnimation {
-  0% {
-    background-color: #d9d9d9;
-  }
-  20% {
-    background-color: #28a745;
-  }
-  100% {
-    background-color: var(--color-background-light);
-  }
+.save-project-btn:hover {
+  background-color: var(--color-bg-green);
 }
 
-@keyframes errorAnimation {
-  0% {
-    background-color: #d9d9d9;
-  }
-  20% {
-    background-color: #dc3545;
-  }
-  100% {
-    background-color: var(--color-background-light);
-  }
+.delete-project-btn:hover {
+  background-color: var(--color-bg-red);
+}
+
+.save-project-button-text, .delete-project-button-text {
+  font-family: "Inter", var(--font-family-default);
+  color: var(--color-text-dark);
+  font-size: var(--font-size-extra-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-default-number);
+  white-space: nowrap;
 }

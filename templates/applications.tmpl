@@ -6,6 +6,7 @@
     <title>{{ .Title }}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Mono:wght@400&display=swap" />
+    <link rel="stylesheet" href="/static/css/global.css">
     <link rel="stylesheet" href="/static/css/applications.css" />
     <script>
         // Функция для сбора данных из текстовых полей
@@ -50,15 +51,15 @@
             <form action="/upd-project" method="POST" class="project-form save-project">
                 <input type="hidden" name="id_project" value="{{ .Project.ID }}" />
                 <input type="hidden" name="status" value="2" />
-                <button type="submit" class="save-project-btn">
-                    <span class="add-to-project-button-text">Сохранить проект</span>
+                <button type="submit" class="project-btn save-project-btn">
+                    <span class="save-project-text">Сохранить проект</span>
                 </button>
             </form>
             <form action="/upd-project" method="POST" class="project-form delete-project">
                 <input type="hidden" name="id_project" value="{{ .Project.ID }}" />
                 <input type="hidden" name="status" value="1" />
-                <button type="submit" class="delete-project-btn">
-                    <span class="add-to-project-button-text">Удалить проект</span>
+                <button type="submit" class="project-btn delete-project-btn">
+                    <span class="delete-project-text">Удалить проект</span>
                 </button>
             </form>
         </div>

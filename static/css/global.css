@@ -1,0 +1,52 @@
+:root {
+    /* Шрифты */
+    --font-family-default: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, 'Helvetica Neue', Arial;
+    --font-family-mono: 'PT Mono', monospace;
+
+    /* Цвета фонов */
+    --color-background-dark: #0d1117;
+    --color-background-darkest: #212830;
+    --color-background-light: #cecece;
+    --color-background-lightest: #ababab;
+    --color-bg-lightest: #f0f0f0;
+    --color-background-medium: #6f6f6f;
+    --color-bg-green: #28a745;
+    --color-bg-red: #dc3545;
+    --color-background-muted: #d9d9d9;
+    --color-background-code: #151b23;
+
+    /* Цвета текста */
+    --color-text-light: #ffffff;
+    --color-text-dark: #000000;
+    --color-text-muted: #d6d6d6;
+
+    /* Границы и радиусы */
+    --color-border-light: #ffffff;
+    --color-border-dark: #000000;
+    --border-radius-extra-small: 5px;
+    --border-radius-small: 15px;
+    --border-radius-default: 20px;
+    --border-radius-large: 25px;
+    --border-radius-extra-large: 40px;
+
+    /* Шрифт и размеры */
+    --font-size-smallest: 14px;
+    --font-size-extra-small: 16px;
+    --font-size-large: 35px;
+    --font-size-default: 30px;
+    --font-size-small: 25px;
+    --font-size-subtitle: 40px;
+    --font-size-title: 55px;
+
+    /* Высота строки */
+    --line-height-large: 53px;
+    --line-height-default: 45px;
+    --line-height-minismal: 36px;
+    --line-height-small: 27px;
+    --line-height-default-number: 1.5;
+    --line-height-small-number: 1.4;
+
+    /* Жирность шрифта */
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+}
