@@ -10,6 +10,7 @@ body {
   position: relative;
 }
 
+/* Back Button Styles */
 .icon-btn-back {
   position: absolute;
   width: 50px;
@@ -28,6 +29,7 @@ body {
   border-radius: var(--border-radius-xs);
 }
 
+/* Header Styles */
 .header {
   display: flex;
   justify-content: center;
@@ -43,7 +45,7 @@ body {
   position: absolute;
   top: 33px;
   left: 40px;
-  font-family: "Inter", var(--font-family-default);
+  font-family: var(--font-family-default);
   color: var(--text-color-light);
   font-size: var(--font-size);
   font-weight: var(--font-weight-bold);
@@ -59,12 +61,13 @@ body {
   height: 85px;
 }
 
+/* Search Field Styles */
 .field-search-text {
   position: relative;
   left: 81px;
   width: 1050px;
   height: 75px;
-  font-family: "Inter", var(--font-family-default);
+  font-family: var(--font-family-default);
   color: var(--text-color-dark);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-regular);
@@ -79,7 +82,7 @@ body {
 }
 
 .field-search-text::placeholder {
-  font-family: "Inter", var(--font-family-default);
+  font-family: var(--font-family-default);
   font-size: var(--font-size-lg);
   color: var(--text-color-dark);
 }
@@ -92,6 +95,7 @@ body {
   height: 38px;
 }
 
+/* Separator Line */
 .separator-line {
   position: absolute;
   top: 309px;
@@ -101,6 +105,7 @@ body {
   background-color: var(--border-color-light);
 }
 
+/* Section Styles */
 .search-section,
 .file-count-section {
   position: absolute;
@@ -122,6 +127,7 @@ body {
   border-radius: var(--border-radius-xl);
 }
 
+/* Service List Styles */
 .service-list {
   display: flex;
   flex-wrap: wrap;
@@ -155,10 +161,11 @@ body {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+/* Service Title and Description */
 .service-title {
   padding-top: 10px;
   margin-left: 20px;
-  font-family: "Inter", var(--font-family-default);
+  font-family: var(--font-family-default);
   color: var(--text-color-light);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-regular);
@@ -170,7 +177,7 @@ body {
 .service-description {
   margin-left: 20px;
   max-width: 550px;
-  font-family: "PT Mono", var(--font-family-default);
+  font-family: var(--font-family-mono);
   color: var(--text-color-muted);
   font-size: var(--font-size);
   font-weight: var(--font-weight-regular);
@@ -178,6 +185,7 @@ body {
   text-align: left;
 }
 
+/* Service Image */
 .service-image {
   position: absolute;
   top: 16px;
@@ -187,6 +195,7 @@ body {
   object-fit: cover;
 }
 
+/* Add to Project Button */
 .add-to-project-button-background {
   position: absolute;
   top: 135px;
@@ -241,8 +250,9 @@ body {
   }
 }
 
+/* Button Text */
 .add-to-project-button-text {
-  font-family: "Inter", var(--font-family-default);
+  font-family: var(--font-family-default);
   color: var(--text-color-dark);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-regular);
@@ -250,6 +260,7 @@ body {
   white-space: nowrap;
 }
 
+/* Error Message */
 .error {
   text-align: center;
   background-color: var(--background-color-dark);
@@ -259,8 +270,9 @@ body {
   max-width: 400px;
 }
 
+/* Headings */
 h1 {
-  font-family: "Inter", var(--font-family-default);
+  font-family: var(--font-family-default);
   font-size: var(--font-size-lg);
   line-height: var(--line-height-lg);
   font-weight: var(--font-weight-bold);
